@@ -1,0 +1,1 @@
+Eu quero criar uma landpage do iphone 17 pro usando REACT three fiber tenho 4 workspaces "packages/engine-core" > xtate estados do iphone constantes etc, "packages/engine-frontend" > frontend vite, "packages/engine-react" > three fiber zustand xstate e "engine-shared"
