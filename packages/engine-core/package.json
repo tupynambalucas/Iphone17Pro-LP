@@ -1,0 +1,13 @@
+{
+  "name": "@iphone17pro-lp/engine-core",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "xstate": "^5.24.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3"
+  }
+}
