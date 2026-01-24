@@ -3,7 +3,7 @@
   "references": [
     { "path": "./tsconfig.node.json" },
     { "path": "./packages/engine-core" },
-    { "path": "./packages/engine-react" }
+    { "path": "./packages/engine-react/tsconfig.build.json" }
   ],
   "compilerOptions": {
     "baseUrl": ".",

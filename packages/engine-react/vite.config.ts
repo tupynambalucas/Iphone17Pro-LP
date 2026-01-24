@@ -20,14 +20,8 @@ export default defineConfig(({ mode }) => {
       }),
     ],
 
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-      },
-    },
-
     optimizeDeps: {
-      exclude: ['@elo-organico/shared'],
+      exclude: ['@iphone17pro-lp/engine-core'],
     },
 
     base: './',

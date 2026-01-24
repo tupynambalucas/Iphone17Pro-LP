@@ -185,15 +185,16 @@ const config: Linter.Config[] = [
   },
 
   // ========================================================================
-  // PACKAGES/SHARED - Código compartilhado (STRICT)
+  // PACKAGES/ENGINE-CORE - Código central e lógica (STRICT)
+  // (Antigo Shared)
   // ========================================================================
   {
-    name: 'monorepo/packages-shared',
-    files: ['packages/shared/**/*.{js,mjs,ts,tsx}'],
+    name: 'monorepo/packages-engine-core',
+    files: ['packages/engine-core/**/*.{js,mjs,ts,tsx}'],
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: path.join(__dirname, 'packages/shared'),
+        tsconfigRootDir: path.join(__dirname, 'packages/engine-core'),
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
@@ -207,69 +208,32 @@ const config: Linter.Config[] = [
           destructuredArrayIgnorePattern: '^_',
         },
       ],
-      // Shared: APIs públicas devem ter tipos explícitos
+      // Engine-core: APIs públicas devem ter tipos explícitos
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'error',
 
-      // Shared DEVE ser o código mais rigoroso
+      // Engine-core DEVE ser o código mais rigoroso
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/strict-boolean-expressions': 'warn',
     },
   },
 
   // ========================================================================
-  // PACKAGES/BACKEND - Node.js API
+  // PACKAGES/ENGINE-REACT - Aplicação Frontend
+  // (Antigo Frontend)
   // ========================================================================
   {
-    name: 'monorepo/packages-backend',
-    files: ['packages/backend/**/*.{js,mjs,ts,tsx}'],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: path.join(__dirname, 'packages/backend'),
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-    },
-    rules: {
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-        },
-      ],
-      '@typescript-eslint/no-misused-promises': [
-        'error',
-        {
-          checksVoidReturn: false, // Fastify handlers
-        },
-      ],
-      '@typescript-eslint/require-await': 'warn',
-      '@typescript-eslint/no-floating-promises': 'error',
-
-      // Backend-specific
-      'no-process-env': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'off',
-    },
-  },
-
-  // ========================================================================
-  // PACKAGES/FRONTEND - React Application
-  // ========================================================================
-  {
-    name: 'monorepo/packages-frontend',
-    files: ['packages/frontend/**/*.{js,mjs,ts,tsx}'],
+    name: 'monorepo/packages-engine-react',
+    files: ['packages/engine-react/**/*.{js,mjs,ts,tsx}'],
     ignores: [
-      'packages/frontend/src/types/**/*.d.ts',
-      'packages/frontend/**/*.d.ts',
-      'packages/frontend/src/vite-env.d.ts',
+      'packages/engine-react/src/types/**/*.d.ts',
+      'packages/engine-react/**/*.d.ts',
+      'packages/engine-react/src/vite-env.d.ts',
     ],
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: path.join(__dirname, 'packages/frontend'),
+        tsconfigRootDir: path.join(__dirname, 'packages/engine-react'),
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: {
@@ -288,7 +252,7 @@ const config: Linter.Config[] = [
       },
       'import/resolver': {
         typescript: {
-          project: path.join(__dirname, 'packages/frontend/tsconfig.json'),
+          project: path.join(__dirname, 'packages/engine-react/tsconfig.json'),
           alwaysTryTypes: true,
         },
         node: {

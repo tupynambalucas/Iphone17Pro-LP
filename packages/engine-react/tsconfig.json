@@ -23,6 +23,6 @@
       "@iphone17pro-lp/engine-assets": ["../engine-assets/src"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts", "../shared/src/index.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts", "../engine-core/src/index.ts"],
   "exclude": ["node_modules", "dist", "**/*.css", "**/*.module.css"]
 }
