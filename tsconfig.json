@@ -2,14 +2,13 @@
   "files": [],
   "references": [
     { "path": "./tsconfig.node.json" },
-    { "path": "./packages/shared" },
-    { "path": "./packages/backend" },
-    { "path": "./packages/frontend/tsconfig.build.json" }
+    { "path": "./packages/engine-core" },
+    { "path": "./packages/engine-react" }
   ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@elo-organico/shared": ["packages/shared/src/index.ts"]
+      "@iphone17pro-lp/engine-core": ["packages/engine-core/src/index.ts"]
     }
   }
 }

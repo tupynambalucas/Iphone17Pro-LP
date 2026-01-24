@@ -5,7 +5,7 @@ export interface PlayerInputState {
   right: boolean;
   jump: boolean;
   sprint: boolean;
-  emote: boolean; // <-- Adicionado
+  emote: boolean;
 }
 
 // Mapeamento de teclas (opcional, mas bom para configuração futura)
