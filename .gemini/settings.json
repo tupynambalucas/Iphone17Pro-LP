@@ -1,0 +1,13 @@
+{
+  "context": {
+    "fileName": ["CONTEXT.md", "ATTRIBUTIONS.md", "PRODUCT.md"],
+    "discoveryMaxDirs": 200,
+    "loadMemoryFromIncludeDirectories": true,
+    "fileFiltering": {
+      "respectGitIgnore": false,
+      "respectGeminiIgnore": true,
+      "enableRecursiveFileSearch": true,
+      "disableFuzzySearch": false
+    }
+  }
+}

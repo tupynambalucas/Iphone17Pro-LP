@@ -17,9 +17,6 @@ build/
 .env
 .env.*
 
-
-.geminiignore
-.gemini/
 # --- IDEs e Editores ---
 .iaignore
 # --- Sistema Operacional ---
