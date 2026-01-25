@@ -1,8 +1,8 @@
 import '@/i18n';
-import { UI } from '@/features/ui';
+import Ui from '@/features/ui';
 
 function App() {
-  return <UI />;
+  return <Ui />;
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import IphoneCanvas from '../canvas';
 
-const ui = () => {
+const Ui = () => {
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -15,4 +15,4 @@ const ui = () => {
   );
 };
 
-export default ui;
+export default Ui;
