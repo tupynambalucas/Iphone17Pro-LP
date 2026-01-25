@@ -1,8 +1,5 @@
-import { translations } from '@elo-organico/shared';
-
 export const ptBR = {
   translation: {
-    ...translations,
     ui: {
       login: {
         title: 'Bem-vindo de volta',

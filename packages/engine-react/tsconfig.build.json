@@ -1,18 +1,18 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.app.json",
   "compilerOptions": {
     "composite": true,
-    "rootDir": "./src",
     "outDir": "./dist",
     "noEmit": false,
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@iphone17pro-lp/engine-assets/*": ["../engine-assets/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist", "**/*.test.*", "**/*.spec.*", "**/*.css", "**/*.module.css"],
-  "references": [{ "path": "../engine-core" }]
+  "references": [
+    { "path": "../engine-core" }
+  ]
 }

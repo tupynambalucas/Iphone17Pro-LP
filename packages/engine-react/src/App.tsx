@@ -1,13 +1,8 @@
-import { useEffect, Suspense, lazy } from 'react';
 import '@/i18n';
-
+import { UI } from '@/features/ui';
 
 function App() {
-
-
-  return (
-
-  );
+  return <UI />;
 }
 
 export default App;

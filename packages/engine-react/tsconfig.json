@@ -1,28 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowArbitraryExtensions": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@iphone17pro-lp/engine-core": ["../engine-core/src/index.ts"],
-      "@iphone17pro-lp/engine-assets": ["../engine-assets/src"]
-    }
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts", "../engine-core/src/index.ts"],
-  "exclude": ["node_modules", "dist", "**/*.css", "**/*.module.css"]
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
 }

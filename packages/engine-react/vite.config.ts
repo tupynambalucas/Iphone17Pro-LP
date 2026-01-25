@@ -12,7 +12,9 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => {
   return {
     plugins: [
-      tsconfigPaths(),
+      tsconfigPaths({
+        projects: [mode === 'development' ? './tsconfig.app.json' : './tsconfig.build.json'],
+      }),
       tailwindcss(),
       react(),
       svgr({
@@ -31,6 +33,8 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       open: true,
     },
+
+    assetsInclude: ['**/*.glb', '**/*.gltf'],
 
     build: {
       outDir: 'dist',

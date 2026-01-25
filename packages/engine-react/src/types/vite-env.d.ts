@@ -1,4 +1,5 @@
 /// <reference types="react" />
+/// <reference types="vite/client" />
 
 declare module '*.png' {
   const src: string;
@@ -38,6 +39,26 @@ declare module '*.svg?react' {
 declare module '*.svg' {
   const src: string;
   export default src;
+}
+
+declare module '*.glb' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.gltf' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.module.css' {
+  const classes: Record<string, string>;
+  export default classes;
+}
+
+declare module '*.css' {
+  const content: string;
+  export default content;
 }
 
 interface ImportMetaEnv {

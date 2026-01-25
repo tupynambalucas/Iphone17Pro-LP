@@ -1,65 +1,42 @@
-# Frontend Module - Elo Orgânico
+# ⚛️ @iphone17pro-lp/engine-react
 
-This module comprises the user interface (Client-Side) of the Elo Orgânico platform. It is a modern **Single Page Application (SPA)**, developed to offer a fluid, responsive, and accessible experience for both administrators and end customers.
+The presentation layer of the iPhone 17 Pro Landing Page. This package is a modern React application powered by Vite, focused on delivering a high-fidelity visual experience using WebGL.
 
-## 🎨 Design System and UX
+## 🌟 Features
 
-The interface was built following rigorous usability and visual identity standards:
+- **React 19**: Latest version for better performance and features.
+- **React Three Fiber (R3F)**: Declarative 3D rendering.
+- **Drei & Postprocessing**: Advanced visual effects (DOF, Bloom, etc.).
+- **Zustand**: Transient UI state management.
+- **TailwindCSS v4**: Fast and responsive styling.
+- **Internationalization (i18n)**: Support for multiple languages.
 
-* **Visual Identity**: Color palette inspired by the Atlantic Forest and **Nunito** typography for readability and visual comfort.
-* **Responsiveness**: *Mobile-First* layout, adapting perfectly to mobile devices and desktops.
-* **Internationalization (i18n)**: Architecture prepared for multiple languages (default `pt-BR`).
+## 🚀 How to Run
 
-## 🛠 Technology Stack
-
-* **Core**: [React 19](https://react.dev/)
-* **Build System**: [Vite](https://vitejs.dev/) (Optimized compilation)
-* **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (Utility-First CSS)
-* **State Management**: [Zustand](https://github.com/pmndrs/zustand) (Simplified data flow)
-* **HTTP Communication**: Axios (Interceptors and centralized error handling)
-
----
-
-## 📂 Directory Structure
-
-The source code is organized by *Features*, promoting cohesion and modularity:
-
-```text
-src/
-├── assets/           # Static resources (Images, Fonts, SVGs)
-├── components/       # Reusable UI component library (Atomic Design)
-├── constants/        # Static definitions and configurations
-├── domains/          # API integration layer and Stores (Zustand)
-├── features/         # Functional Modules
-│   ├── admin/        # Control Panel (Management)
-│   ├── shop/         # E-commerce and Catalog (Customer)
-│   ├── auth/         # Authentication Flows
-│   └── landing/      # Institutional Page
-├── i18n/             # Translation configurations
-└── lib/              # Third-party library configuration
-```
-
----
-
-## 💻 Local Development
-
-To run the frontend in isolation in a development environment:
+Ensure you are in the monorepo root or inside this folder.
 
 ```bash
+# Start development server (HMR active)
 npm run dev
-```
-The application will be accessible at `http://localhost:5173`.
 
-> **Technical Note**: for full functionality (Login, Catalog, Checkout), the **Backend** must be running and accessible on the configured port.
-
----
-
-## 📦 Build and Deploy
-
-The build process generates optimized static assets in the `dist/` directory.
-
-```bash
+# Build for production
 npm run build
+
+# Preview production build
+npm run preview
 ```
 
-In a production environment (Docker), these artifacts are served by a high-performance **Nginx** server, configured as a Reverse Proxy and static file server.
+## 🏗️ Component Architecture (SOLID)
+
+We utilize a **Domain-Driven** directory structure.
+
+- **`src/App.tsx`**: Application entry point, sets up the main Canvas and Layout.
+- **`src/iphone/`**: **The Actor**. Contains the iPhone 3D model, its internal logic, materials, and the controller that listens to state changes to animate it.
+- **`src/land/`**: **The Stage**. Contains the landing page sections (Hero, Specs, etc.). These sections dictate *where* the iPhone should be, but do not render it directly.
+- **`src/hooks/`**: Global reusable hooks.
+
+## 🔌 Integration with Engine-Core
+
+This package consumes logic from `@iphone17pro-lp/engine-core`.
+- **Dev**: Alias points to `../engine-core/src` (Hot Reload works for logic).
+- **Prod**: Alias points to `node_modules/.../dist` (Uses compiled and stable version).

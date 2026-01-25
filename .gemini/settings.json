@@ -1,6 +1,13 @@
 {
   "context": {
-    "fileName": ["CONTEXT.md", "ATTRIBUTIONS.md", "PRODUCT.md"],
+    "fileName": [
+      "CONTEXT.md",
+      "PRODUCT.md",
+      "README.md",
+      "threejs-expert.md",
+      "STYLEGUIDE.md",
+      "ARCHITECTURE.md"
+    ],
     "discoveryMaxDirs": 200,
     "loadMemoryFromIncludeDirectories": true,
     "fileFiltering": {

@@ -1,40 +1,41 @@
-# Shared Library - Elo Orgânico (@elo-organico/shared)
+# 🧠 @iphone17pro-lp/engine-core
 
-This package plays the fundamental role of **Single Source of Truth** within the Elo Orgânico Monorepo architecture.
+The "brain" of the application. This package contains all business logic, complex state management, constants, and type definitions that are agnostic to the view layer.
 
-Its goal is to ensure data integrity and consistency by sharing interface contracts, validation rules, and constants between the **Server (Backend)** and the **Client (Frontend)**.
+## 🎯 Objective
 
-## 📦 Exported Components
+Centralize logic to ensure product business rules (iPhone 17 Pro) are consistent and testable, regardless of how they are rendered (Web, Mobile, CLI, etc.).
 
-The library provides the following resources to other modules:
+## 🛠️ Tech Stack
 
-1.  **Validation Schemas (Zod)**:
-    * Rigorous definitions for entities such as `User`, `Product`, `Cycle`, and `Auth`.
-    * Used in the Backend for Payload validation and in the Frontend for Form validation.
+- **TypeScript**: Strict typing.
+- **XState**: Finite state machines for complex flows (e.g., Entrance Animation, Color Selection, Storage Configuration).
 
-2.  **TypeScript Typing**:
-    * Static types inferred automatically from Zod Schemas (`z.infer<>`).
-    * Ensures that changes in the data model are reflected at compile time throughout the project.
+## 📦 Main Modules
 
-3.  **Global Constants**:
-    * Configurations and fixed values shared between environments.
+- **`state/`**: State Machine definitions (XState).
+  - `iphone.state.ts`: Controls the current model state (selected color, rotation, zoom).
+- **`constants/`**: Immutable values.
+  - `camera.constants.ts`: Camera positions for different breakpoints.
+  - `physics.constants.ts`: Physics configurations (if applicable).
+- **`types/`**: Shared TypeScript type definitions.
+- **`locales/`**: Translation strings and text data.
 
----
+## 🏗️ Build & Development
 
-## 🔄 Development and Maintenance Flow
+This package is compiled using `tsc`.
 
-To maintain system consistency, any change in data modeling must follow this flow:
+```bash
+# Install dependencies
+npm install
 
-1.  **Modification**: Modify the desired schema or constant in `src/schemas` or `src/constants.ts`.
-2.  **Compilation**: Execute the package build to generate distribution files and type definitions (`.d.ts`):
-    ```bash
-    npm run build
-    ```
-3.  **Propagation**: TypeScript will automatically detect changes in the `@elo-organico/backend` and `@elo-organico/frontend` modules, pointing out any inconsistencies that need refactoring.
+# Build (Generates /dist folder)
+npm run build
 
-## 🛠 Available Commands
+# Development (Watch mode)
+npm run dev
+```
 
-* **`npm run build`**: Cleans the `dist` directory, compiles TypeScript, and generates type declarations.
-* **`npm run dev`**: Runs compilation in *Watch* mode, ideal for simultaneous development of business rules and interfaces.
-* **`npm run typecheck`**: Verifies type integrity without generating output files.
-* **`npm run lint`**: Ensures source code standardization.
+## 🤝 Integration
+
+This package is consumed by `@packages/engine-react`. In development mode, `engine-react` uses an alias to read directly from `src/`, allowing instant feedback.
