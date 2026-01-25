@@ -1,19 +1,22 @@
-import * as THREE from 'three/webgpu'
-import * as TSL from 'three/tsl'
-import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
+import * as THREE from 'three/webgpu';
+import * as TSL from 'three/tsl';
+import { Canvas, extend, type CanvasProps } from '@react-three/fiber';
 
-extend(THREE as any)
+extend(THREE as any);
 
-export default () => (
-  <Canvas
-    gl={async (props) => {
-      const renderer = new THREE.WebGPURenderer(props as any)
-      await renderer.init()
-      return renderer
-    }}>
+function IphoneCanvas() {
+  const glConfig: CanvasProps['gl'] = (canvas) => {
+    return new THREE.WebGPURenderer({ canvas, antialias: true, alpha: true });
+  };
+
+  return (
+    <Canvas gl={glConfig}>
       <mesh>
         <meshBasicNodeMaterial />
         <boxGeometry />
       </mesh>
-  </Canvas>
-)
+    </Canvas>
+  );
+}
+
+export default IphoneCanvas;
