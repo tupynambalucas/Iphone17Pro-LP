@@ -1,16 +1,16 @@
-import type { ThreeElements as CoreThreeElements } from '@react-three/fiber'
-import type * as THREE from 'three/webgpu'
+import type { ThreeElements as CoreThreeElements } from '@react-three/fiber';
+import type * as THREE from 'three/webgpu';
 
 declare module '@react-three/fiber' {
   interface ThreeElements extends CoreThreeElements {
-    // Extend ThreeElements here for custom elements or WebGPU-specific types if needed in the future
+    meshBasicNodeMaterial: CoreThreeElements['meshBasicMaterial'];
   }
 }
 
-// This re-declares the JSX namespace to include the augmented ThreeElements.
-// It's the officially recommended way for R3F v9.
 declare global {
   namespace JSX {
-    interface IntrinsicElements extends CoreThreeElements {}
+    interface IntrinsicElements extends CoreThreeElements {
+      meshBasicNodeMaterial: any;
+    }
   }
 }

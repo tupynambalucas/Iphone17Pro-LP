@@ -1,14 +1,11 @@
-import { ExperienceCanvas } from '../canvas';
+import IphoneCanvas from '../canvas';
 
-export function UI() {
+const ui = () => {
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
-      {/* 3D Background Layer */}
       <div className="absolute inset-0 z-0">
-        <ExperienceCanvas />
+        <IphoneCanvas />
       </div>
-
-      {/* UI Overlay Layer */}
       <main className="relative z-10 w-full h-full pointer-events-none">
         <div className="container mx-auto p-4 pointer-events-auto">
           <h1 className="text-white text-4xl font-bold">iPhone 17 Pro</h1>
@@ -16,4 +13,6 @@ export function UI() {
       </main>
     </div>
   );
-}
+};
+
+export default ui;
