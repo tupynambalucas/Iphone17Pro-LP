@@ -286,6 +286,12 @@ const config: Linter.Config[] = [
           destructuredArrayIgnorePattern: '^_',
         },
       ],
+      'react/no-unknown-property': [
+        'error',
+        {
+          ignore: ['dispose', 'castShadow', 'receiveShadow', 'geometry', 'material', 'userData'],
+        },
+      ],
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/no-explicit-any': 'error',

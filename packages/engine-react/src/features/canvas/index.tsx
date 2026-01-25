@@ -1,25 +1,26 @@
 import * as THREE from 'three/webgpu';
 import { Canvas, extend, type CanvasProps } from '@react-three/fiber';
-
-extend(THREE as any);
+import Iphone from './components/Iphone';
+extend(THREE as unknown as Record<string, new (...args: unknown[]) => unknown>);
 
 function IphoneCanvas() {
-  const glConfig: CanvasProps['gl'] = ({ canvas }) => {
-    return new THREE.WebGPURenderer({
-      canvas: canvas as HTMLCanvasElement,
+  const glConfig: CanvasProps['gl'] = async ({ canvas }) => {
+    const renderer = new THREE.WebGPURenderer({
+      canvas,
       antialias: true,
       alpha: true,
-    }) as unknown as THREE.Renderer;
-    // O 'as unknown as' é o padrão profissional para converter tipos
-    // incompatíveis de bibliotecas externas sem usar 'any' diretamente.
+    });
+
+    // É OBRIGATÓRIO aguardar a inicialização do backend WebGPU
+    await renderer.init();
+
+    return renderer as unknown as THREE.Renderer;
   };
 
   return (
     <Canvas gl={glConfig}>
-      <mesh>
-        <meshBasicNodeMaterial />
-        <boxGeometry />
-      </mesh>
+      <ambientLight intensity={30} />
+      <Iphone position={[0, 0, 4.5]} rotation={[0, 0, 0]} />
     </Canvas>
   );
 }

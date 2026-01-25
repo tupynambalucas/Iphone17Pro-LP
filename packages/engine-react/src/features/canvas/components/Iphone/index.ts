@@ -1,1 +1,1 @@
-export { Model as IphoneModel } from './models/iphone.base.model';
+export { default } from './models/iphone.base.model';
