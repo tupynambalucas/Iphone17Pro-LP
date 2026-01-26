@@ -319,23 +319,6 @@ const config: Linter.Config[] = [
       'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     },
   },
-
-  // ========================================================================
-  // TEST FILES - Regras relaxadas
-  // ========================================================================
-  {
-    name: 'monorepo/test-files',
-    files: ['**/*.{test,spec}.{js,mjs,ts,tsx}', '**/__tests__/**/*.{js,mjs,ts,tsx}'],
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-floating-promises': 'off',
-      'no-console': 'off',
-    },
-  },
 ];
 
 export default config;
