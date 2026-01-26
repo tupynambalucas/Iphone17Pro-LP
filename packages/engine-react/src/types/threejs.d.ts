@@ -9,6 +9,7 @@ declare module '@react-three/fiber' {
     meshBasicNodeMaterial: CoreThreeElements['meshBasicMaterial'];
     meshStandardNodeMaterial: CoreThreeElements['meshStandardMaterial'];
     group: CoreThreeElements['group'];
+    mesh: CoreThreeElements['mesh'];
   }
 
   // Corrigindo a assinatura da prop 'gl' para o R3F v9

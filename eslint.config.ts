@@ -289,7 +289,25 @@ const config: Linter.Config[] = [
       'react/no-unknown-property': [
         'error',
         {
-          ignore: ['dispose', 'castShadow', 'receiveShadow', 'geometry', 'material', 'userData'],
+          ignore: [
+            'dispose',
+            'castShadow',
+            'receiveShadow',
+            'geometry',
+            'material',
+            'userData',
+            'args', // Essencial para construtores (new Three.Color(args))
+            'position',
+            'rotation',
+            'scale',
+            'intensity',
+            'intensity',
+            'rotation-x', // Suporte a propriedades atalizadas do R3F
+            'rotation-y',
+            'rotation-z',
+            'lookAt',
+            'attach', // Crucial para acoplamento de objetos
+          ],
         },
       ],
       '@typescript-eslint/no-empty-function': 'off',
