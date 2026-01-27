@@ -16,6 +16,7 @@ declare module '@react-three/fiber' {
 }
 
 declare global {
+  type GLTFAction = THREE.AnimationClip;
   namespace JSX {
     interface IntrinsicElements extends CoreThreeElements {
       meshBasicNodeMaterial: any;

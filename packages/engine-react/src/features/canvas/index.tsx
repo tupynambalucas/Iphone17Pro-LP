@@ -19,8 +19,8 @@ function IphoneCanvas() {
 
   return (
     <Canvas gl={glConfig}>
-      <ambientLight intensity={30} />
-      <Iphone position={[0, 0, 4.5]} rotation={[0, 0, 0]} />
+      <ambientLight intensity={3} />
+      <Iphone position={[0, 0, 4.5]} rotation={[0, 2.5, 0]} />
     </Canvas>
   );
 }

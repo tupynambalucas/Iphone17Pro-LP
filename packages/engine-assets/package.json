@@ -1,5 +1,8 @@
 {
   "name": "@iphone17pro-lp/engine-assets",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "model:generate": "npx gltfjsx src/models/gltf/iphone17.glb --types --keepmeshes --keepmaterials --keepnames --keepgroups --output ../engine-react/src/features/canvas/components/Iphone/model/iphone.base.model.tsx"
+  }
 }

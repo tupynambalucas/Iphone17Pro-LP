@@ -12,7 +12,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@iphone17pro-lp/engine-core": ["../engine-core/src/index.ts"],
-      "@iphone17pro-lp/engine-assets/*": ["../engine-assets/*"]
+      "@iphone17pro-lp/engine-assets/*": ["../engine-assets/src/*"]
     }
   },
   "include": ["src"],

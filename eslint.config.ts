@@ -319,6 +319,17 @@ const config: Linter.Config[] = [
       'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     },
   },
+  {
+    name: 'monorepo/generated-models-shimming',
+    files: ['**/*.model.tsx'],
+    rules: {
+      // Desabilita a obrigatoriedade de 'import type' para modelos gerados
+      '@typescript-eslint/consistent-type-imports': 'off',
+      // O gltfjsx usa as-casting que o ESLint pode reclamar
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+    },
+  },
 ];
 
 export default config;

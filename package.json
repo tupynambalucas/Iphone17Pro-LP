@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev:frontend": "npm run dev -w @iphone17pro-lp/engine-react",
+    "model:generate": "npm run model:generate -w @iphone17pro-lp/engine-assets",
     "lint": "eslint ."
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "prettier": "^3.7.4",
     "rimraf": "^6.0.1",
+    "shx": "^0.4.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.50.1"
   }
