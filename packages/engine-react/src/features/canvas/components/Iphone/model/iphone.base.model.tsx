@@ -11,86 +11,94 @@ import modelPath from '@iphone17pro-lp/engine-assets/models/gltf/iphone17.glb';
 
 type GLTFResult = GLTF & {
   nodes: {
-    BackGlass_back: THREE.Mesh;
-    BackGlass_glass: THREE.Mesh;
-    BackGlass_logo: THREE.Mesh;
+    Body_main: THREE.Mesh;
+    Body_detail: THREE.Mesh;
+    Button: THREE.Mesh;
+    Button_wire: THREE.Mesh;
+    BackGlass: THREE.Mesh;
     BackCameraTop_back: THREE.Mesh;
     BackCameraTop_front: THREE.Mesh;
-    M_BackCameraTop_glass: THREE.Mesh;
-    M_BackCameraTop_glass_1: THREE.Mesh;
+    BackCameraTop_glass: THREE.Mesh;
     M_BackCameraTop_lens: THREE.Mesh;
     M_BackCameraTop_lens_1: THREE.Mesh;
     BackCameraBot_back: THREE.Mesh;
     BackCameraBot_front: THREE.Mesh;
     BackCameraBot_lens: THREE.Mesh;
-    M_BackCameraBot_mirror: THREE.Mesh;
-    M_BackCameraBot_mirror_1: THREE.Mesh;
+    BackCameraBot_mirror: THREE.Mesh;
     BackCameraCenter_back: THREE.Mesh;
     BackCameraCenter_front: THREE.Mesh;
-    M_BackCameraCenter_glass: THREE.Mesh;
-    M_BackCameraCenter_glass_1: THREE.Mesh;
+    BackCameraCenter_glass: THREE.Mesh;
     BackCameraCenter_lens: THREE.Mesh;
+    M_CameraFront: THREE.Mesh;
+    M_CameraFront_1: THREE.Mesh;
     Led_back: THREE.Mesh;
     Led_front: THREE.Mesh;
+    Lidar: THREE.Mesh;
     Screen_border: THREE.Mesh;
     Screen_display: THREE.Mesh;
     Screen_glass: THREE.Mesh;
-    M_Body_main: THREE.Mesh;
-    M_Body_main_1: THREE.Mesh;
-    M_Body_main_2: THREE.Mesh;
-    M_Body_main_3: THREE.Mesh;
-    Body_wire: THREE.Mesh;
-    Button: THREE.Mesh;
-    Button_wire: THREE.Mesh;
-    M_CameraFront: THREE.Mesh;
-    M_CameraFront_1: THREE.Mesh;
-    Lidar: THREE.Mesh;
     Screws: THREE.Mesh;
     Speakers: THREE.Mesh;
+    CameraAttach_front: THREE.Mesh;
+    CameraAttach_back: THREE.Mesh;
+    Body_back: THREE.Mesh;
   };
   materials: {
-    Frosted_glass: THREE.MeshStandardMaterial;
+    Aluminum: THREE.MeshStandardMaterial;
+    Plastic_antena: THREE.MeshStandardMaterial;
     Tint_back_glass: THREE.MeshStandardMaterial;
-    Glass: THREE.MeshStandardMaterial;
-    Camera_filter: THREE.MeshStandardMaterial;
+    Metal_Screw: THREE.MeshStandardMaterial;
+    Camera_filter: THREE.MeshPhysicalMaterial;
     Frame: THREE.MeshStandardMaterial;
-    Sapphire_miror: THREE.MeshStandardMaterial;
     Mirror_filter: THREE.MeshStandardMaterial;
+    g: THREE.MeshStandardMaterial;
     Lens: THREE.MeshStandardMaterial;
     material: THREE.MeshStandardMaterial;
     Plastic_LED: THREE.MeshStandardMaterial;
     Display: THREE.MeshStandardMaterial;
-    Aluminum: THREE.MeshStandardMaterial;
-    Metal_Screw: THREE.MeshStandardMaterial;
-    Plastic_USB_port: THREE.MeshStandardMaterial;
-    Plastic_antena: THREE.MeshStandardMaterial;
+    Glass: THREE.MeshStandardMaterial;
   };
   animations: GLTFAction[];
 };
 
 export function Model(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(modelPath) as unknown as GLTFResult;
+  materials.Mirror_filter.envMapIntensity = 1; // Ajuste o valor conforme desejar
+
   return (
     <group {...props} dispose={null}>
       <group name="Scene">
-        <group name="BackGlass">
-          <mesh
-            name="BackGlass_back"
-            geometry={nodes.BackGlass_back.geometry}
-            material={materials.Frosted_glass}
-          />
-          <mesh
-            name="BackGlass_glass"
-            geometry={nodes.BackGlass_glass.geometry}
-            material={materials.Tint_back_glass}
-          />
-          <mesh
-            name="BackGlass_logo"
-            geometry={nodes.BackGlass_logo.geometry}
-            material={materials.Glass}
-          />
-        </group>
-        <group name="BackCameraTop">
+        <mesh
+          name="Body_main"
+          geometry={nodes.Body_main.geometry}
+          material={materials.Aluminum}
+          scale={2.06}
+        />
+        <mesh
+          name="Body_detail"
+          geometry={nodes.Body_detail.geometry}
+          material={materials.Plastic_antena}
+          scale={2.06}
+        />
+        <mesh
+          name="Button"
+          geometry={nodes.Button.geometry}
+          material={materials.Tint_back_glass}
+          scale={2.06}
+        />
+        <mesh
+          name="Button_wire"
+          geometry={nodes.Button_wire.geometry}
+          material={materials.Metal_Screw}
+          scale={2.06}
+        />
+        <mesh
+          name="BackGlass"
+          geometry={nodes.BackGlass.geometry}
+          material={materials.Tint_back_glass}
+          scale={2.06}
+        />
+        <group name="BackCameraTop" scale={2.06}>
           <mesh
             name="BackCameraTop_back"
             geometry={nodes.BackCameraTop_back.geometry}
@@ -101,23 +109,16 @@ export function Model(props: JSX.IntrinsicElements['group']) {
             geometry={nodes.BackCameraTop_front.geometry}
             material={materials.Frame}
           />
-          <group name="BackCameraTop_glass">
-            <mesh
-              name="M_BackCameraTop_glass"
-              geometry={nodes.M_BackCameraTop_glass.geometry}
-              material={materials.Sapphire_miror}
-            />
-            <mesh
-              name="M_BackCameraTop_glass_1"
-              geometry={nodes.M_BackCameraTop_glass_1.geometry}
-              material={materials.Mirror_filter}
-            />
-          </group>
+          <mesh
+            name="BackCameraTop_glass"
+            geometry={nodes.BackCameraTop_glass.geometry}
+            material={materials.Mirror_filter}
+          />
           <group name="BackCameraTop_lens">
             <mesh
               name="M_BackCameraTop_lens"
               geometry={nodes.M_BackCameraTop_lens.geometry}
-              material={materials.Sapphire_miror}
+              material={materials.g}
             />
             <mesh
               name="M_BackCameraTop_lens_1"
@@ -126,7 +127,7 @@ export function Model(props: JSX.IntrinsicElements['group']) {
             />
           </group>
         </group>
-        <group name="BackCameraBot">
+        <group name="BackCameraBot" scale={2.06}>
           <mesh
             name="BackCameraBot_back"
             geometry={nodes.BackCameraBot_back.geometry}
@@ -142,20 +143,13 @@ export function Model(props: JSX.IntrinsicElements['group']) {
             geometry={nodes.BackCameraBot_lens.geometry}
             material={materials.Lens}
           />
-          <group name="BackCameraBot_mirror">
-            <mesh
-              name="M_BackCameraBot_mirror"
-              geometry={nodes.M_BackCameraBot_mirror.geometry}
-              material={materials.Sapphire_miror}
-            />
-            <mesh
-              name="M_BackCameraBot_mirror_1"
-              geometry={nodes.M_BackCameraBot_mirror_1.geometry}
-              material={materials.Mirror_filter}
-            />
-          </group>
+          <mesh
+            name="BackCameraBot_mirror"
+            geometry={nodes.BackCameraBot_mirror.geometry}
+            material={materials.Mirror_filter}
+          />
         </group>
-        <group name="BackCameraCenter">
+        <group name="BackCameraCenter" scale={2.06}>
           <mesh
             name="BackCameraCenter_back"
             geometry={nodes.BackCameraCenter_back.geometry}
@@ -166,25 +160,30 @@ export function Model(props: JSX.IntrinsicElements['group']) {
             geometry={nodes.BackCameraCenter_front.geometry}
             material={materials.Frame}
           />
-          <group name="BackCameraCenter_glass">
-            <mesh
-              name="M_BackCameraCenter_glass"
-              geometry={nodes.M_BackCameraCenter_glass.geometry}
-              material={materials.Mirror_filter}
-            />
-            <mesh
-              name="M_BackCameraCenter_glass_1"
-              geometry={nodes.M_BackCameraCenter_glass_1.geometry}
-              material={materials.Sapphire_miror}
-            />
-          </group>
+          <mesh
+            name="BackCameraCenter_glass"
+            geometry={nodes.BackCameraCenter_glass.geometry}
+            material={materials.Mirror_filter}
+          />
           <mesh
             name="BackCameraCenter_lens"
             geometry={nodes.BackCameraCenter_lens.geometry}
             material={materials.Lens}
           />
         </group>
-        <group name="Led">
+        <group name="CameraFront" scale={2.06}>
+          <mesh
+            name="M_CameraFront"
+            geometry={nodes.M_CameraFront.geometry}
+            material={materials.Lens}
+          />
+          <mesh
+            name="M_CameraFront_1"
+            geometry={nodes.M_CameraFront_1.geometry}
+            material={materials.Camera_filter}
+          />
+        </group>
+        <group name="Led" scale={2.06}>
           <mesh name="Led_back" geometry={nodes.Led_back.geometry} material={materials.material} />
           <mesh
             name="Led_front"
@@ -192,7 +191,13 @@ export function Model(props: JSX.IntrinsicElements['group']) {
             material={materials.Plastic_LED}
           />
         </group>
-        <group name="Screen">
+        <mesh
+          name="Lidar"
+          geometry={nodes.Lidar.geometry}
+          material={materials.Frame}
+          scale={2.06}
+        />
+        <group name="Screen" scale={2.06}>
           <mesh
             name="Screen_border"
             geometry={nodes.Screen_border.geometry}
@@ -209,54 +214,36 @@ export function Model(props: JSX.IntrinsicElements['group']) {
             material={materials.Glass}
           />
         </group>
-        <group name="Body_main">
-          <mesh
-            name="M_Body_main"
-            geometry={nodes.M_Body_main.geometry}
-            material={materials.Aluminum}
-          />
-          <mesh
-            name="M_Body_main_1"
-            geometry={nodes.M_Body_main_1.geometry}
-            material={materials.Camera_filter}
-          />
-          <mesh
-            name="M_Body_main_2"
-            geometry={nodes.M_Body_main_2.geometry}
-            material={materials.Metal_Screw}
-          />
-          <mesh
-            name="M_Body_main_3"
-            geometry={nodes.M_Body_main_3.geometry}
-            material={materials.Plastic_USB_port}
-          />
-        </group>
         <mesh
-          name="Body_wire"
-          geometry={nodes.Body_wire.geometry}
-          material={materials.Plastic_antena}
-        />
-        <mesh name="Button" geometry={nodes.Button.geometry} material={materials.Tint_back_glass} />
-        <mesh
-          name="Button_wire"
-          geometry={nodes.Button_wire.geometry}
+          name="Screws"
+          geometry={nodes.Screws.geometry}
           material={materials.Metal_Screw}
+          scale={2.06}
         />
-        <group name="CameraFront">
-          <mesh
-            name="M_CameraFront"
-            geometry={nodes.M_CameraFront.geometry}
-            material={materials.Lens}
-          />
-          <mesh
-            name="M_CameraFront_1"
-            geometry={nodes.M_CameraFront_1.geometry}
-            material={materials.Camera_filter}
-          />
-        </group>
-        <mesh name="Lidar" geometry={nodes.Lidar.geometry} material={materials.Frame} />
-        <mesh name="Screws" geometry={nodes.Screws.geometry} material={materials.Metal_Screw} />
-        <mesh name="Speakers" geometry={nodes.Speakers.geometry} material={materials.Metal_Screw} />
+        <mesh
+          name="Speakers"
+          geometry={nodes.Speakers.geometry}
+          material={materials.Metal_Screw}
+          scale={2.06}
+        />
+        <mesh
+          name="CameraAttach_front"
+          geometry={nodes.CameraAttach_front.geometry}
+          material={materials.Aluminum}
+          scale={2.06}
+        />
+        <mesh
+          name="CameraAttach_back"
+          geometry={nodes.CameraAttach_back.geometry}
+          material={materials.Aluminum}
+          scale={2.06}
+        />
+        <mesh
+          name="Body_back"
+          geometry={nodes.Body_back.geometry}
+          material={materials.Aluminum}
+          scale={2.06}
+        />
       </group>
     </group>
   );

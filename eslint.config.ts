@@ -307,6 +307,8 @@ const config: Linter.Config[] = [
             'rotation-z',
             'lookAt',
             'attach', // Crucial para acoplamento de objetos
+            'target-position',
+            'envMapIntensity',
           ],
         },
       ],
