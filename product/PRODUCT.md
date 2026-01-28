@@ -22,25 +22,18 @@ The new unibody design is seamless, robust, and purposefully built to be the ult
 
 _The definition of premium performance._
 
+**Cores que escolhi por conta propria algumas são orinais do iphone 17 pro outras eu mesmo adicionei**
+
 | Color Name        | Hex Code  | Description                                                                  |
 | :---------------- | :-------- | :--------------------------------------------------------------------------- |
-| **Cosmic Orange** | `#E65C00` | A vivid, metallic orange inspired by accretion disks. Bold and energetic.    |
-| **Deep Blue**     | `#0A1128` | Near-black navy. Profound, professional, and infinite like the ocean depths. |
-| **Silver**        | `#C0C0C0` | The classic, refined aluminum aesthetic. Pure and timeless.                  |
+| **Cosmic Orange** | `#f77314` | A vivid, metallic orange inspired by accretion disks. Bold and energetic.    |
+| **Deep Blue**     | `#2b3145` | Near-black navy. Profound, professional, and infinite like the ocean depths. |
+| **Silver**        | `#f5f5f5` | The classic, refined aluminum aesthetic. Pure and timeless.                  |
 | **Space Black**   | `#1A1A1A` | A deep matte black that absorbs light. Stealth and sophistication.           |
-| **Titanium Gray** | `#8C8C8C` | A nod to the previous generation, offering a raw, industrial metal look.     |
-
-#### **iPhone 17 (Standard Glass)**
-
-_For reference: The standard line focuses on vibrant, saturated hues._
-
-| Color Name      | Hex Code  | Description                  |
-| :-------------- | :-------- | :--------------------------- |
-| **Ultramarine** | `#5D3FD3` | Deep, saturated violet-blue. |
-| **Teal**        | `#008080` | Fresh and aquatic.           |
-| **Pink**        | `#FFB6C1` | Soft and playful.            |
-| **Midnight**    | `#191970` | Classic dark blue-black.     |
-| **Starlight**   | `#F8F9FA` | Warm white.                  |
+| **Ultramarine**   | `#5D3FD3` | Deep, saturated violet-blue.                                                 |
+| **Pink**          | `#FFB6C1` | Soft and playful.                                                            |
+| **Midnight**      | `#191970` | Classic dark blue-black.                                                     |
+| **Starlight**     | `#F8F9FA` | Warm white.                                                                  |
 
 ---
 
