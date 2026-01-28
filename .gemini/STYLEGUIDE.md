@@ -9,8 +9,8 @@ Type safety is our number one priority to prevent runtime bugs.
 - **ZERO `any`**: The use of `any` is strictly prohibited (`@typescript-eslint/no-explicit-any`).
   - *Alternative:* Use `unknown` with type guards or define the correct interface.
 - **Explicit Return Types**:
-  - In `@packages/engine-core`: **Mandatory** for all exported functions (`explicit-module-boundary-types`).
-  - In `@packages/engine-react`: Recommended, but inference is accepted for simple components.
+  - In `@iphone17pro-lp/engine-core`: **Mandatory** for all exported functions (`explicit-module-boundary-types`).
+  - In `@iphone17pro-lp/engine-react`: Recommended, but inference is accepted for simple components.
 - **Type Imports**: Always separate type imports from value imports.
   ```typescript
   // ✅ Correct
@@ -29,36 +29,36 @@ Type safety is our number one priority to prevent runtime bugs.
 Adherence to **SOLID** principles is mandatory to maintain scalability.
 
 1.  **S - Single Responsibility Principle**: Each component or hook must do ONE thing.
-    *   *Example:* `IphoneModel.tsx` only renders the GLB. `IphoneController.tsx` handles the animation logic. They should not be mixed.
+    *   *Example:* `iphone.base.model.tsx` only renders the GLB. Animation logic is handled in hooks like `features/canvas/components/Iphone/hooks/iphone.animations.ts`. They should not be mixed.
 2.  **O - Open/Closed Principle**: Components should be open for extension (via props/composition) but closed for modification.
     *   *Rule:* Don't add `if (isFeatureX)` inside a generic component. Create a specialized wrapper or use composition.
 3.  **L - Liskov Substitution**: (More applicable to classes, but for React types): Sub-components should satisfy the props contract of their parents.
 4.  **I - Interface Segregation**: Props interfaces should be specific. Don't pass the entire `User` object if a component only needs `avatarUrl`.
 5.  **D - Dependency Inversion**: High-level modules (features) should not depend on low-level modules directly; they should depend on abstractions (hooks/contexts).
 
-## 📂 File Structure (Feature-First)
+## 📂 File Structure (Feature-Sliced)
 
-We follow a domain-driven structure, NOT "technology-driven" (no broad `components/` or `hooks/` folders unless global).
+We follow a feature-sliced structure, NOT "technology-driven" (no broad `components/` or `hooks/` folders unless global).
 
-- **`src/iphone/`**: **The Core Domain**.
-  - Contains the SINGLE instance of the 3D iPhone model.
-  - Controls its own materials, mesh logic, and adaptation to global state.
-  - *Concept:* The iPhone is a persistent "actor" on the stage.
-- **`src/land/`**: **The Context/Scene**.
-  - Contains the landing page sections (Hero, Camera, Titanium).
-  - Each section *orchestrates* the iPhone's position via state, but doesn't "own" the model.
+- **`src/features/canvas/`**: **The 3D "Stage"**.
+  - Contains the main `<Canvas>` element, lighting, and all 3D components.
+  - The iPhone model itself lives in `src/features/canvas/components/Iphone/`.
+- **`src/features/ui/`**: **The 2D "UI Layer"**.
+  - Contains the landing page sections (Hero, Camera, etc.) built with HTML.
+  - These components *orchestrate* the 3D scene by updating state, but do not render 3D elements directly.
 
-## ⚛️ React (Engine-React)
+## ⚛️ React & R3F (Engine-React)
 
 - **Functional Components**: Only functional components.
 - **Hooks Rules**:
   - `useEffect` and `useCallback` dependencies must be exhaustive (`react-hooks/exhaustive-deps`).
   - Never call Hooks conditionally.
 - **Props**:
-  - Avoid passing object literals directly to optimized component props to prevent unnecessary re-renders.
+  - Avoid passing object literals directly to optimized component props (`<MemoizedComponent obj={{}} />`) to prevent unnecessary re-renders.
 - **State**:
   - **Local UI**: Use `useState`.
-  - **Global/Complex**: Use **Zustand** or **XState** (via `@packages/engine-core`).
+  - **Global/Complex**: Use **Zustand** or **XState** (via `@iphone17pro-lp/engine-core`).
+- **R3F Props**: Our ESLint configuration allows for non-standard React props common in R3F (e.g., `attach`, `args`, `rotation-x`). See `eslint.config.ts` for the full list under `react/no-unknown-property`.
 
 ## 🧠 Core Logic (Engine-Core)
 
@@ -71,12 +71,11 @@ We follow a domain-driven structure, NOT "technology-driven" (no broad `componen
 - **Promises**: Floating promises (without `await` or `.catch`) are prohibited (`no-floating-promises`).
 - **Comparison**: Always use triple equals `===` (`eqeqeq`).
 
-## 📂 File Structure
+## 📂 File Naming
 
-- **Naming**:
-  - Files: `kebab-case.ts` (e.g., `iphone-controller.ts`).
-  - React Components: `PascalCase.tsx` (e.g., `HeroSection.tsx`).
-  - Hooks: `camelCase.ts` (e.g., `useAnimation.ts`).
+- **Files**: `kebab-case.ts` (e.g., `iphone-animations.ts`).
+- **React Components**: `PascalCase.tsx` (e.g., `HeroSection.tsx`).
+- **Hooks**: `useCamelCase.ts` (e.g., `useScrollAnimation.ts`).
 
 ## 🔍 ESLint Highlights
 

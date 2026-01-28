@@ -10,9 +10,9 @@ The project is a **Monorepo** organized to clearly separate business logic from 
 
 | Package | Path | Description |
 | :--- | :--- | :--- |
-| **Engine Core** | [`packages/engine-core`](packages/engine-core) | Business logic, XState, Types, and Constants. |
-| **Engine React** | [`packages/engine-react`](packages/engine-react) | Frontend, 3D Scene (R3F), UI, and Vite. |
-| **Engine Assets**| [`packages/engine-assets`](packages/engine-assets) | 3D Models, Textures, and original Shaders. |
+| **`@iphone17pro-lp/engine-core`** | [`packages/engine-core`](packages/engine-core) | Business logic, XState, Types, and Constants. |
+| **`@iphone17pro-lp/engine-react`** | [`packages/engine-react`](packages/engine-react) | Frontend, 3D Scene (R3F), UI, and Vite. |
+| **`@iphone17pro-lp/engine-assets`**| [`packages/engine-assets`](packages/engine-assets) | 3D Models, Textures, and original Shaders. |
 
 ## 🛠️ Installation & Setup
 

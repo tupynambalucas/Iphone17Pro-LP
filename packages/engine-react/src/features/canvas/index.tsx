@@ -24,8 +24,10 @@ function IphoneCanvas() {
 
       <directionalLight
         position={[0, 2, 7]}
-        intensity={2}
+        intensity={3}
         castShadow
+        shadow-bias={-0.0005}
+        shadow-normalBias={0.02}
         target-position={iphonePosition}
       />
 

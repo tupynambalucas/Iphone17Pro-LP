@@ -15,7 +15,6 @@ type GLTFResult = GLTF & {
     Body_detail: THREE.Mesh;
     Button: THREE.Mesh;
     Button_wire: THREE.Mesh;
-    BackGlass: THREE.Mesh;
     BackCameraTop_back: THREE.Mesh;
     BackCameraTop_front: THREE.Mesh;
     BackCameraTop_glass: THREE.Mesh;
@@ -42,15 +41,17 @@ type GLTFResult = GLTF & {
     CameraAttach_front: THREE.Mesh;
     CameraAttach_back: THREE.Mesh;
     Body_back: THREE.Mesh;
+    BackGlass_back: THREE.Mesh;
+    BackGlass_glass: THREE.Mesh;
   };
   materials: {
     Aluminum: THREE.MeshStandardMaterial;
     Plastic_antena: THREE.MeshStandardMaterial;
     Tint_back_glass: THREE.MeshStandardMaterial;
     Metal_Screw: THREE.MeshStandardMaterial;
-    Camera_filter: THREE.MeshPhysicalMaterial;
+    Camera_filter: THREE.MeshStandardMaterial;
     Frame: THREE.MeshStandardMaterial;
-    Mirror_filter: THREE.MeshStandardMaterial;
+    Mirror_filter: THREE.MeshPhysicalMaterial;
     g: THREE.MeshStandardMaterial;
     Lens: THREE.MeshStandardMaterial;
     material: THREE.MeshStandardMaterial;
@@ -70,180 +71,258 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       <group name="Scene">
         <mesh
           name="Body_main"
+          castShadow
+          receiveShadow
           geometry={nodes.Body_main.geometry}
           material={materials.Aluminum}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="Body_detail"
+          castShadow
+          receiveShadow
           geometry={nodes.Body_detail.geometry}
           material={materials.Plastic_antena}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="Button"
+          castShadow
+          receiveShadow
           geometry={nodes.Button.geometry}
           material={materials.Tint_back_glass}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="Button_wire"
+          castShadow
+          receiveShadow
           geometry={nodes.Button_wire.geometry}
           material={materials.Metal_Screw}
-          scale={2.06}
+          scale={2.05976081}
         />
-        <mesh
-          name="BackGlass"
-          geometry={nodes.BackGlass.geometry}
-          material={materials.Tint_back_glass}
-          scale={2.06}
-        />
-        <group name="BackCameraTop" scale={2.06}>
+        <group name="BackCameraTop" scale={2.05976081}>
           <mesh
             name="BackCameraTop_back"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraTop_back.geometry}
             material={materials.Camera_filter}
           />
           <mesh
             name="BackCameraTop_front"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraTop_front.geometry}
             material={materials.Frame}
           />
           <mesh
             name="BackCameraTop_glass"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraTop_glass.geometry}
             material={materials.Mirror_filter}
           />
           <group name="BackCameraTop_lens">
             <mesh
               name="M_BackCameraTop_lens"
+              castShadow
+              receiveShadow
               geometry={nodes.M_BackCameraTop_lens.geometry}
               material={materials.g}
             />
             <mesh
               name="M_BackCameraTop_lens_1"
+              castShadow
+              receiveShadow
               geometry={nodes.M_BackCameraTop_lens_1.geometry}
               material={materials.Lens}
             />
           </group>
         </group>
-        <group name="BackCameraBot" scale={2.06}>
+        <group name="BackCameraBot" scale={2.05976081}>
           <mesh
             name="BackCameraBot_back"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraBot_back.geometry}
             material={materials.Camera_filter}
           />
           <mesh
             name="BackCameraBot_front"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraBot_front.geometry}
             material={materials.Frame}
           />
           <mesh
             name="BackCameraBot_lens"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraBot_lens.geometry}
             material={materials.Lens}
           />
           <mesh
             name="BackCameraBot_mirror"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraBot_mirror.geometry}
             material={materials.Mirror_filter}
           />
         </group>
-        <group name="BackCameraCenter" scale={2.06}>
+        <group name="BackCameraCenter" scale={2.05976081}>
           <mesh
             name="BackCameraCenter_back"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraCenter_back.geometry}
             material={materials.Camera_filter}
           />
           <mesh
             name="BackCameraCenter_front"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraCenter_front.geometry}
             material={materials.Frame}
           />
           <mesh
             name="BackCameraCenter_glass"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraCenter_glass.geometry}
             material={materials.Mirror_filter}
           />
           <mesh
             name="BackCameraCenter_lens"
+            castShadow
+            receiveShadow
             geometry={nodes.BackCameraCenter_lens.geometry}
             material={materials.Lens}
           />
         </group>
-        <group name="CameraFront" scale={2.06}>
+        <group name="CameraFront" scale={2.05976081}>
           <mesh
             name="M_CameraFront"
+            castShadow
+            receiveShadow
             geometry={nodes.M_CameraFront.geometry}
             material={materials.Lens}
           />
           <mesh
             name="M_CameraFront_1"
+            castShadow
+            receiveShadow
             geometry={nodes.M_CameraFront_1.geometry}
             material={materials.Camera_filter}
           />
         </group>
-        <group name="Led" scale={2.06}>
-          <mesh name="Led_back" geometry={nodes.Led_back.geometry} material={materials.material} />
+        <group name="Led" scale={2.05976081}>
+          <mesh
+            name="Led_back"
+            castShadow
+            receiveShadow
+            geometry={nodes.Led_back.geometry}
+            material={materials.material}
+          />
           <mesh
             name="Led_front"
+            castShadow
+            receiveShadow
             geometry={nodes.Led_front.geometry}
             material={materials.Plastic_LED}
           />
         </group>
         <mesh
           name="Lidar"
+          castShadow
+          receiveShadow
           geometry={nodes.Lidar.geometry}
           material={materials.Frame}
-          scale={2.06}
+          scale={2.05976081}
         />
-        <group name="Screen" scale={2.06}>
+        <group name="Screen" scale={2.05976081}>
           <mesh
             name="Screen_border"
+            castShadow
+            receiveShadow
             geometry={nodes.Screen_border.geometry}
             material={materials.Frame}
           />
           <mesh
             name="Screen_display"
+            castShadow
+            receiveShadow
             geometry={nodes.Screen_display.geometry}
             material={materials.Display}
           />
           <mesh
             name="Screen_glass"
+            castShadow
+            receiveShadow
             geometry={nodes.Screen_glass.geometry}
             material={materials.Glass}
           />
         </group>
         <mesh
           name="Screws"
+          castShadow
+          receiveShadow
           geometry={nodes.Screws.geometry}
           material={materials.Metal_Screw}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="Speakers"
+          castShadow
+          receiveShadow
           geometry={nodes.Speakers.geometry}
           material={materials.Metal_Screw}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="CameraAttach_front"
+          castShadow
+          receiveShadow
           geometry={nodes.CameraAttach_front.geometry}
           material={materials.Aluminum}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="CameraAttach_back"
+          castShadow
+          receiveShadow
           geometry={nodes.CameraAttach_back.geometry}
           material={materials.Aluminum}
-          scale={2.06}
+          scale={2.05976081}
         />
         <mesh
           name="Body_back"
+          castShadow
+          receiveShadow
           geometry={nodes.Body_back.geometry}
           material={materials.Aluminum}
-          scale={2.06}
+          scale={2.05976081}
         />
+        <group name="BackGlass" position={[-0.04123554, 0.05011719, 0.13333525]}>
+          <mesh
+            name="BackGlass_back"
+            castShadow
+            receiveShadow
+            geometry={nodes.BackGlass_back.geometry}
+            material={materials.Tint_back_glass}
+            position={[0.04123554, -0.05011719, -0.13333525]}
+            scale={2.05976081}
+          />
+          <mesh
+            name="BackGlass_glass"
+            castShadow
+            receiveShadow
+            geometry={nodes.BackGlass_glass.geometry}
+            material={materials.Tint_back_glass}
+            position={[0.04123554, -0.05011719, -0.13333525]}
+            scale={2.05976081}
+          />
+        </group>
       </group>
     </group>
   );

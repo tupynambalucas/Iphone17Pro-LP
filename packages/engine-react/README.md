@@ -28,11 +28,12 @@ npm run preview
 
 ## 🏗️ Component Architecture (SOLID)
 
-We utilize a **Domain-Driven** directory structure.
+We utilize a **Feature-Sliced** directory structure.
 
-- **`src/App.tsx`**: Application entry point, sets up the main Canvas and Layout.
-- **`src/iphone/`**: **The Actor**. Contains the iPhone 3D model, its internal logic, materials, and the controller that listens to state changes to animate it.
-- **`src/land/`**: **The Stage**. Contains the landing page sections (Hero, Specs, etc.). These sections dictate *where* the iPhone should be, but do not render it directly.
+- **`src/App.tsx`**: Application entry point, sets up the main layout and providers.
+- **`src/features/canvas/`**: **The Stage**. Contains the main R3F `Canvas`, lighting, and all 3D objects.
+  - **`src/features/canvas/components/Iphone/`**: **The Actor**. Contains the iPhone 3D model, its materials, and animation hooks.
+- **`src/features/ui/`**: **The UI Layer**. Contains the page sections (Hero, Specs, etc.) that users interact with. These components drive the application state but do not render 3D objects directly.
 - **`src/hooks/`**: Global reusable hooks.
 
 ## 🔌 Integration with Engine-Core

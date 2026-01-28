@@ -309,6 +309,8 @@ const config: Linter.Config[] = [
             'attach', // Crucial para acoplamento de objetos
             'target-position',
             'envMapIntensity',
+            'shadow-bias',
+            'shadow-normalBias',
           ],
         },
       ],

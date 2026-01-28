@@ -38,4 +38,4 @@ npm run dev
 
 ## 🤝 Integration
 
-This package is consumed by `@packages/engine-react`. In development mode, `engine-react` uses an alias to read directly from `src/`, allowing instant feedback.
+This package is consumed by `@iphone17pro-lp/engine-react`. In development mode, `engine-react` uses an alias to read directly from `src/`, allowing instant feedback.

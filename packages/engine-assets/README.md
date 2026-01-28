@@ -12,7 +12,7 @@ This package is the central repository for all digital assets used in the iPhone
 
 ## 🚀 Usage
 
-This package is primarily consumed by `@packages/engine-react`.
+This package is primarily consumed by `@iphone17pro-lp/engine-react`.
 
 ### How to add new assets
 
