@@ -11,317 +11,344 @@ import modelPath from '@iphone17pro-lp/engine-assets/models/gltf/iphone17.glb';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Body_main: THREE.Mesh;
-    Body_detail: THREE.Mesh;
-    Button: THREE.Mesh;
-    Button_wire: THREE.Mesh;
-    BackCameraTop_back: THREE.Mesh;
-    BackCameraTop_front: THREE.Mesh;
-    BackCameraTop_glass: THREE.Mesh;
-    M_BackCameraTop_lens: THREE.Mesh;
-    M_BackCameraTop_lens_1: THREE.Mesh;
-    BackCameraBot_back: THREE.Mesh;
-    BackCameraBot_front: THREE.Mesh;
-    BackCameraBot_lens: THREE.Mesh;
-    BackCameraBot_mirror: THREE.Mesh;
-    BackCameraCenter_back: THREE.Mesh;
-    BackCameraCenter_front: THREE.Mesh;
-    BackCameraCenter_glass: THREE.Mesh;
-    BackCameraCenter_lens: THREE.Mesh;
-    M_CameraFront: THREE.Mesh;
-    M_CameraFront_1: THREE.Mesh;
-    Led_back: THREE.Mesh;
-    Led_front: THREE.Mesh;
-    Lidar: THREE.Mesh;
-    Screen_border: THREE.Mesh;
-    Screen_display: THREE.Mesh;
-    Screen_glass: THREE.Mesh;
-    Screws: THREE.Mesh;
-    Speakers: THREE.Mesh;
-    CameraAttach_front: THREE.Mesh;
-    CameraAttach_back: THREE.Mesh;
-    Body_back: THREE.Mesh;
-    BackGlass_back: THREE.Mesh;
-    BackGlass_glass: THREE.Mesh;
+    MSH_Antenna_Bands: THREE.Mesh;
+    MSH_Antenna_Window: THREE.Mesh;
+    MSH_Button_Action: THREE.Mesh;
+    MSH_Button_Camera_Control: THREE.Mesh;
+    MSH_Button_Side: THREE.Mesh;
+    MSH_Button_Volume_Down: THREE.Mesh;
+    MSH_Button_Volume_Up: THREE.Mesh;
+    MSH_Camera_Main_Front: THREE.Mesh;
+    MSH_Camera_Main_Mirror: THREE.Mesh;
+    MSH_Camera_Telephoto_Front: THREE.Mesh;
+    MSH_Camera_Telephoto_Mirror: THREE.Mesh;
+    MSH_Camera_Wide_Front: THREE.Mesh;
+    MSH_Camera_Wide_Mirror: THREE.Mesh;
+    MSH_Camera_Plateau_Forged: THREE.Mesh;
+    MSH_Camera_Main_Body: THREE.Mesh;
+    MSH_Camera_Main_Lens: THREE.Mesh;
+    MSH_Camera_Selfie_Attach: THREE.Mesh;
+    MSH_Camera_Selfie_Body: THREE.Mesh;
+    MSH_Camera_Selfie_Lens: THREE.Mesh;
+    MSH_Camera_Selfie_Mirror: THREE.Mesh;
+    MSH_Camera_Telephoto_Body: THREE.Mesh;
+    MSH_Camera_Telephoto_Lens: THREE.Mesh;
+    MSH_Camera_Telephoto_Lens_Glass: THREE.Mesh;
+    MSH_Camera_Wide_Body: THREE.Mesh;
+    MSH_Camera_Wide_Lens: THREE.Mesh;
+    MHS_Camera_Led: THREE.Mesh;
+    MHS_Camera_Lidar: THREE.Mesh;
+    MSH_Chassis_Screws: THREE.Mesh;
+    MSH_Chassis_Speakers: THREE.Mesh;
+    M_Body_main002: THREE.Mesh;
+    M_Body_main002_1: THREE.Mesh;
+    M_Body_main002_2: THREE.Mesh;
+    MSH_Rear_Ceramic_Pane: THREE.Mesh;
+    MSH_Rear_Logo: THREE.Mesh;
+    MHS_Screen_Border: THREE.Mesh;
+    MHS_Screen_Display: THREE.Mesh;
+    GEO_Screen_Glass: THREE.Mesh;
   };
-  materials: {
-    Aluminum: THREE.MeshStandardMaterial;
-    Plastic_antena: THREE.MeshStandardMaterial;
-    Tint_back_glass: THREE.MeshStandardMaterial;
-    Metal_Screw: THREE.MeshStandardMaterial;
-    Camera_filter: THREE.MeshStandardMaterial;
-    Frame: THREE.MeshStandardMaterial;
-    Mirror_filter: THREE.MeshPhysicalMaterial;
-    g: THREE.MeshStandardMaterial;
-    Lens: THREE.MeshStandardMaterial;
-    material: THREE.MeshStandardMaterial;
-    Plastic_LED: THREE.MeshStandardMaterial;
-    Display: THREE.MeshStandardMaterial;
-    Glass: THREE.MeshStandardMaterial;
-  };
+  materials: {};
   animations: GLTFAction[];
 };
 
 export function Model(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(modelPath) as unknown as GLTFResult;
-  materials.Mirror_filter.envMapIntensity = 1; // Ajuste o valor conforme desejar
 
   return (
     <group {...props} dispose={null}>
-      <group name="Scene">
-        <mesh
-          name="Body_main"
-          castShadow
-          receiveShadow
-          geometry={nodes.Body_main.geometry}
-          material={materials.Aluminum}
-          scale={2.05976081}
-        />
-        <mesh
-          name="Body_detail"
-          castShadow
-          receiveShadow
-          geometry={nodes.Body_detail.geometry}
-          material={materials.Plastic_antena}
-          scale={2.05976081}
-        />
-        <mesh
-          name="Button"
-          castShadow
-          receiveShadow
-          geometry={nodes.Button.geometry}
-          material={materials.Tint_back_glass}
-          scale={2.05976081}
-        />
-        <mesh
-          name="Button_wire"
-          castShadow
-          receiveShadow
-          geometry={nodes.Button_wire.geometry}
-          material={materials.Metal_Screw}
-          scale={2.05976081}
-        />
-        <group name="BackCameraTop" scale={2.05976081}>
+      <group name="GRP_Iphone_17">
+        <group name="GRP_Antenna_System">
           <mesh
-            name="BackCameraTop_back"
+            name="MSH_Antenna_Bands"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraTop_back.geometry}
-            material={materials.Camera_filter}
+            geometry={nodes.MSH_Antenna_Bands.geometry}
+            material={nodes.MSH_Antenna_Bands.material}
           />
           <mesh
-            name="BackCameraTop_front"
+            name="MSH_Antenna_Window"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraTop_front.geometry}
-            material={materials.Frame}
+            geometry={nodes.MSH_Antenna_Window.geometry}
+            material={nodes.MSH_Antenna_Window.material}
+          />
+        </group>
+        <group name="GRP_Button_System">
+          <mesh
+            name="MSH_Button_Action"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Button_Action.geometry}
+            material={nodes.MSH_Button_Action.material}
           />
           <mesh
-            name="BackCameraTop_glass"
+            name="MSH_Button_Camera_Control"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraTop_glass.geometry}
-            material={materials.Mirror_filter}
+            geometry={nodes.MSH_Button_Camera_Control.geometry}
+            material={nodes.MSH_Button_Camera_Control.material}
           />
-          <group name="BackCameraTop_lens">
+          <mesh
+            name="MSH_Button_Side"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Button_Side.geometry}
+            material={nodes.MSH_Button_Side.material}
+          />
+          <mesh
+            name="MSH_Button_Volume_Down"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Button_Volume_Down.geometry}
+            material={nodes.MSH_Button_Volume_Down.material}
+          />
+          <mesh
+            name="MSH_Button_Volume_Up"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Button_Volume_Up.geometry}
+            material={nodes.MSH_Button_Volume_Up.material}
+          />
+        </group>
+        <group name="GRP_Camera_Plateau">
+          <group name="GRP_Camera_Main_Cover">
             <mesh
-              name="M_BackCameraTop_lens"
+              name="MSH_Camera_Main_Front"
               castShadow
               receiveShadow
-              geometry={nodes.M_BackCameraTop_lens.geometry}
-              material={materials.g}
+              geometry={nodes.MSH_Camera_Main_Front.geometry}
+              material={nodes.MSH_Camera_Main_Front.material}
             />
             <mesh
-              name="M_BackCameraTop_lens_1"
+              name="MSH_Camera_Main_Mirror"
               castShadow
               receiveShadow
-              geometry={nodes.M_BackCameraTop_lens_1.geometry}
-              material={materials.Lens}
+              geometry={nodes.MSH_Camera_Main_Mirror.geometry}
+              material={nodes.MSH_Camera_Main_Mirror.material}
+            />
+          </group>
+          <group name="GRP_Camera_Telephoto_Cover">
+            <mesh
+              name="MSH_Camera_Telephoto_Front"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Telephoto_Front.geometry}
+              material={nodes.MSH_Camera_Telephoto_Front.material}
+            />
+            <mesh
+              name="MSH_Camera_Telephoto_Mirror"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Telephoto_Mirror.geometry}
+              material={nodes.MSH_Camera_Telephoto_Mirror.material}
+            />
+          </group>
+          <group name="GRP_Camera_Wide_Cover">
+            <mesh
+              name="MSH_Camera_Wide_Front"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Wide_Front.geometry}
+              material={nodes.MSH_Camera_Wide_Front.material}
+            />
+            <mesh
+              name="MSH_Camera_Wide_Mirror"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Wide_Mirror.geometry}
+              material={nodes.MSH_Camera_Wide_Mirror.material}
+            />
+          </group>
+          <mesh
+            name="MSH_Camera_Plateau_Forged"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Camera_Plateau_Forged.geometry}
+            material={nodes.MSH_Camera_Plateau_Forged.material}
+          />
+        </group>
+        <group name="GRP_Camera_System">
+          <group name="GRP_Camera_Main">
+            <mesh
+              name="MSH_Camera_Main_Body"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Main_Body.geometry}
+              material={nodes.MSH_Camera_Main_Body.material}
+            />
+            <mesh
+              name="MSH_Camera_Main_Lens"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Main_Lens.geometry}
+              material={nodes.MSH_Camera_Main_Lens.material}
+            />
+          </group>
+          <group name="GRP_Camera_Selfie">
+            <mesh
+              name="MSH_Camera_Selfie_Attach"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Selfie_Attach.geometry}
+              material={nodes.MSH_Camera_Selfie_Attach.material}
+            />
+            <mesh
+              name="MSH_Camera_Selfie_Body"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Selfie_Body.geometry}
+              material={nodes.MSH_Camera_Selfie_Body.material}
+            />
+            <mesh
+              name="MSH_Camera_Selfie_Lens"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Selfie_Lens.geometry}
+              material={nodes.MSH_Camera_Selfie_Lens.material}
+            />
+            <mesh
+              name="MSH_Camera_Selfie_Mirror"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Selfie_Mirror.geometry}
+              material={nodes.MSH_Camera_Selfie_Mirror.material}
+            />
+          </group>
+          <group name="GRP_Camera_Telephoto">
+            <mesh
+              name="MSH_Camera_Telephoto_Body"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Telephoto_Body.geometry}
+              material={nodes.MSH_Camera_Telephoto_Body.material}
+            />
+            <mesh
+              name="MSH_Camera_Telephoto_Lens"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Telephoto_Lens.geometry}
+              material={nodes.MSH_Camera_Telephoto_Lens.material}
+            />
+            <mesh
+              name="MSH_Camera_Telephoto_Lens_Glass"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Telephoto_Lens_Glass.geometry}
+              material={nodes.MSH_Camera_Telephoto_Lens_Glass.material}
+            />
+          </group>
+          <group name="GRP_Camera_Wide">
+            <mesh
+              name="MSH_Camera_Wide_Body"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Wide_Body.geometry}
+              material={nodes.MSH_Camera_Wide_Body.material}
+            />
+            <mesh
+              name="MSH_Camera_Wide_Lens"
+              castShadow
+              receiveShadow
+              geometry={nodes.MSH_Camera_Wide_Lens.geometry}
+              material={nodes.MSH_Camera_Wide_Lens.material}
+            />
+          </group>
+          <mesh
+            name="MHS_Camera_Led"
+            castShadow
+            receiveShadow
+            geometry={nodes.MHS_Camera_Led.geometry}
+            material={nodes.MHS_Camera_Led.material}
+          />
+          <mesh
+            name="MHS_Camera_Lidar"
+            castShadow
+            receiveShadow
+            geometry={nodes.MHS_Camera_Lidar.geometry}
+            material={nodes.MHS_Camera_Lidar.material}
+          />
+        </group>
+        <group name="GRP_Chassis_Main">
+          <mesh
+            name="MSH_Chassis_Screws"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Chassis_Screws.geometry}
+            material={nodes.MSH_Chassis_Screws.material}
+          />
+          <mesh
+            name="MSH_Chassis_Speakers"
+            castShadow
+            receiveShadow
+            geometry={nodes.MSH_Chassis_Speakers.geometry}
+            material={nodes.MSH_Chassis_Speakers.material}
+          />
+          <group name="MSH_Chassis_Unibody_Frame" scale={2.06}>
+            <mesh
+              name="M_Body_main002"
+              castShadow
+              receiveShadow
+              geometry={nodes.M_Body_main002.geometry}
+              material={nodes.M_Body_main002.material}
+            />
+            <mesh
+              name="M_Body_main002_1"
+              castShadow
+              receiveShadow
+              geometry={nodes.M_Body_main002_1.geometry}
+              material={nodes.M_Body_main002_1.material}
+            />
+            <mesh
+              name="M_Body_main002_2"
+              castShadow
+              receiveShadow
+              geometry={nodes.M_Body_main002_2.geometry}
+              material={nodes.M_Body_main002_2.material}
             />
           </group>
         </group>
-        <group name="BackCameraBot" scale={2.05976081}>
+        <group name="GRP_Rear_Assembly">
           <mesh
-            name="BackCameraBot_back"
+            name="MSH_Rear_Ceramic_Pane"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraBot_back.geometry}
-            material={materials.Camera_filter}
+            geometry={nodes.MSH_Rear_Ceramic_Pane.geometry}
+            material={nodes.MSH_Rear_Ceramic_Pane.material}
           />
           <mesh
-            name="BackCameraBot_front"
+            name="MSH_Rear_Logo"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraBot_front.geometry}
-            material={materials.Frame}
-          />
-          <mesh
-            name="BackCameraBot_lens"
-            castShadow
-            receiveShadow
-            geometry={nodes.BackCameraBot_lens.geometry}
-            material={materials.Lens}
-          />
-          <mesh
-            name="BackCameraBot_mirror"
-            castShadow
-            receiveShadow
-            geometry={nodes.BackCameraBot_mirror.geometry}
-            material={materials.Mirror_filter}
+            geometry={nodes.MSH_Rear_Logo.geometry}
+            material={nodes.MSH_Rear_Logo.material}
           />
         </group>
-        <group name="BackCameraCenter" scale={2.05976081}>
+        <group name="GRP_Screen_System">
           <mesh
-            name="BackCameraCenter_back"
+            name="MHS_Screen_Border"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraCenter_back.geometry}
-            material={materials.Camera_filter}
+            geometry={nodes.MHS_Screen_Border.geometry}
+            material={nodes.MHS_Screen_Border.material}
           />
           <mesh
-            name="BackCameraCenter_front"
+            name="MHS_Screen_Display"
             castShadow
             receiveShadow
-            geometry={nodes.BackCameraCenter_front.geometry}
-            material={materials.Frame}
+            geometry={nodes.MHS_Screen_Display.geometry}
+            material={nodes.MHS_Screen_Display.material}
           />
-          <mesh
-            name="BackCameraCenter_glass"
-            castShadow
-            receiveShadow
-            geometry={nodes.BackCameraCenter_glass.geometry}
-            material={materials.Mirror_filter}
-          />
-          <mesh
-            name="BackCameraCenter_lens"
-            castShadow
-            receiveShadow
-            geometry={nodes.BackCameraCenter_lens.geometry}
-            material={materials.Lens}
-          />
-        </group>
-        <group name="CameraFront" scale={2.05976081}>
-          <mesh
-            name="M_CameraFront"
-            castShadow
-            receiveShadow
-            geometry={nodes.M_CameraFront.geometry}
-            material={materials.Lens}
-          />
-          <mesh
-            name="M_CameraFront_1"
-            castShadow
-            receiveShadow
-            geometry={nodes.M_CameraFront_1.geometry}
-            material={materials.Camera_filter}
-          />
-        </group>
-        <group name="Led" scale={2.05976081}>
-          <mesh
-            name="Led_back"
-            castShadow
-            receiveShadow
-            geometry={nodes.Led_back.geometry}
-            material={materials.material}
-          />
-          <mesh
-            name="Led_front"
-            castShadow
-            receiveShadow
-            geometry={nodes.Led_front.geometry}
-            material={materials.Plastic_LED}
-          />
-        </group>
-        <mesh
-          name="Lidar"
-          castShadow
-          receiveShadow
-          geometry={nodes.Lidar.geometry}
-          material={materials.Frame}
-          scale={2.05976081}
-        />
-        <group name="Screen" scale={2.05976081}>
-          <mesh
-            name="Screen_border"
-            castShadow
-            receiveShadow
-            geometry={nodes.Screen_border.geometry}
-            material={materials.Frame}
-          />
-          <mesh
-            name="Screen_display"
-            castShadow
-            receiveShadow
-            geometry={nodes.Screen_display.geometry}
-            material={materials.Display}
-          />
-          <mesh
-            name="Screen_glass"
-            castShadow
-            receiveShadow
-            geometry={nodes.Screen_glass.geometry}
-            material={materials.Glass}
-          />
-        </group>
-        <mesh
-          name="Screws"
-          castShadow
-          receiveShadow
-          geometry={nodes.Screws.geometry}
-          material={materials.Metal_Screw}
-          scale={2.05976081}
-        />
-        <mesh
-          name="Speakers"
-          castShadow
-          receiveShadow
-          geometry={nodes.Speakers.geometry}
-          material={materials.Metal_Screw}
-          scale={2.05976081}
-        />
-        <mesh
-          name="CameraAttach_front"
-          castShadow
-          receiveShadow
-          geometry={nodes.CameraAttach_front.geometry}
-          material={materials.Aluminum}
-          scale={2.05976081}
-        />
-        <mesh
-          name="CameraAttach_back"
-          castShadow
-          receiveShadow
-          geometry={nodes.CameraAttach_back.geometry}
-          material={materials.Aluminum}
-          scale={2.05976081}
-        />
-        <mesh
-          name="Body_back"
-          castShadow
-          receiveShadow
-          geometry={nodes.Body_back.geometry}
-          material={materials.Aluminum}
-          scale={2.05976081}
-        />
-        <group name="BackGlass" position={[-0.04123554, 0.05011719, 0.13333525]}>
-          <mesh
-            name="BackGlass_back"
-            castShadow
-            receiveShadow
-            geometry={nodes.BackGlass_back.geometry}
-            material={materials.Tint_back_glass}
-            position={[0.04123554, -0.05011719, -0.13333525]}
-            scale={2.05976081}
-          />
-          <mesh
-            name="BackGlass_glass"
-            castShadow
-            receiveShadow
-            geometry={nodes.BackGlass_glass.geometry}
-            material={materials.Tint_back_glass}
-            position={[0.04123554, -0.05011719, -0.13333525]}
-            scale={2.05976081}
-          />
+          <group name="MHS_Screen_Glass" scale={2.06}>
+            <mesh
+              name="GEO_Screen_Glass"
+              castShadow
+              receiveShadow
+              geometry={nodes.GEO_Screen_Glass.geometry}
+              material={nodes.GEO_Screen_Glass.material}
+            />
+          </group>
         </group>
       </group>
     </group>
