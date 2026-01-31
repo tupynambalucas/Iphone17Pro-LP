@@ -14,7 +14,8 @@
       "respectGitIgnore": false,
       "respectGeminiIgnore": true,
       "enableRecursiveFileSearch": true,
-      "disableFuzzySearch": false
+      "disableFuzzySearch": false,
+      "enableFuzzySearch": true
     }
   }
 }

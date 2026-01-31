@@ -1,28 +1,47 @@
 import { MeshPhysicalNodeMaterial } from 'three/webgpu';
-import { color, float, uv, vec2, mix, noise } from 'three/tsl'; // noise agora importado daqui
+import { color, float, uv, vec2, mix, noise } from 'three/tsl';
+import type { Node } from 'three/tsl';
 
 /**
- * Material de Alumínio com tipagem explícita.
+ * Aluminum Material for iPhone 17 Pro.
+ * Uses TSL (Three Shading Language) for procedural grain and anodized finish.
  */
 export const AluminumMaterial = new MeshPhysicalNodeMaterial({
   name: 'AluminumMaterial',
-  metalness: 1.0,
-  roughness: 0.15,
+  metalness: 1.0, // Base PBR property
+  roughness: 0.2, // Base PBR property
 });
 
-// 1. Escala do ruído
-const noiseScale = vec2(200.0, 200.0);
-const scaledUV = uv().mul(noiseScale);
+// --- Procedural TSL Logic ---
 
-// 2. Ruído procedural
-// Com o .d.ts atualizado, metalNoise não será mais 'any'
-const metalNoise = noise(scaledUV);
+// 1. Noise Scale: Controls the density of the aluminum grain
+const noiseScale: Node = vec2(200.0, 200.0);
+const scaledUV: Node = uv().mul(noiseScale);
 
-// 3. Aplicação nos nós
-AluminumMaterial.colorNode = mix(color('#8a8a8a'), color('#b0b0b0'), metalNoise.mul(0.05));
+// 2. Procedural Noise
+// We use noise to simulate the micro-surface texture of anodized aluminum
+const metalNoise: Node = noise(scaledUV);
 
-const grainIntensity = float(0.1);
-AluminumMaterial.roughnessNode = mix(float(0.15), float(0.25), metalNoise.mul(grainIntensity));
+// 3. Color Mixing
+// Mix between two shades of silver based on the noise for a subtle metallic shimmer
+const baseColor = color('#8a8a8a');
+const accentColor = color('#b0b0b0');
+const colorVariation = metalNoise.mul(0.05);
 
-// Metalness como Node
+AluminumMaterial.colorNode = mix(baseColor, accentColor, colorVariation);
+
+// 4. Roughness Variation
+// Procedural roughness gives it a more realistic, non-uniform finish
+const minRoughness = float(0.15);
+const maxRoughness = float(0.25);
+const roughnessIntensity = float(0.1);
+
+AluminumMaterial.roughnessNode = mix(
+  minRoughness,
+  maxRoughness,
+  metalNoise.mul(roughnessIntensity),
+);
+
+// 5. Metalness
+// Ensure it's fully metallic at the node level as well
 AluminumMaterial.metalnessNode = float(1.0);
