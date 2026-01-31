@@ -1,13 +1,10 @@
 import { MeshPhysicalNodeMaterial } from 'three/webgpu';
-import { color, float, uv, vec2, mix } from 'three/tsl';
-// O noise geralmente reside no entry point de nodes
-import { noise } from 'three/nodes';
+import { color, float, uv, vec2, mix, noise } from 'three/tsl'; // noise agora importado daqui
 
 /**
- * Material de Alumínio com tipagem explícita para satisfazer o ESLint.
- * Definimos como MeshPhysicalNodeMaterial para liberar o acesso às propriedades Node.
+ * Material de Alumínio com tipagem explícita.
  */
-export const AluminumMaterial: MeshPhysicalNodeMaterial = new MeshPhysicalNodeMaterial({
+export const AluminumMaterial = new MeshPhysicalNodeMaterial({
   name: 'AluminumMaterial',
   metalness: 1.0,
   roughness: 0.15,
@@ -17,11 +14,11 @@ export const AluminumMaterial: MeshPhysicalNodeMaterial = new MeshPhysicalNodeMa
 const noiseScale = vec2(200.0, 200.0);
 const scaledUV = uv().mul(noiseScale);
 
-// 2. Ruído procedural (agora com tipo Node reconhecido)
+// 2. Ruído procedural
+// Com o .d.ts atualizado, metalNoise não será mais 'any'
 const metalNoise = noise(scaledUV);
 
 // 3. Aplicação nos nós
-// O uso de color() e mix() garante que estamos trabalhando com Nodes de TSL
 AluminumMaterial.colorNode = mix(color('#8a8a8a'), color('#b0b0b0'), metalNoise.mul(0.05));
 
 const grainIntensity = float(0.1);
