@@ -1,5 +1,5 @@
 import { MeshPhysicalNodeMaterial } from 'three/webgpu';
-import { color, float, uv, vec2, mix, noise } from 'three/tsl';
+import { color, float, uv, vec2, mix, mx_noise_vec3 } from 'three/tsl';
 import type { Node } from 'three/tsl';
 
 /**
@@ -20,7 +20,7 @@ const scaledUV: Node = uv().mul(noiseScale);
 
 // 2. Procedural Noise
 // We use noise to simulate the micro-surface texture of anodized aluminum
-const metalNoise: Node = noise(scaledUV);
+const metalNoise: Node = mx_noise_vec3(scaledUV);
 
 // 3. Color Mixing
 // Mix between two shades of silver based on the noise for a subtle metallic shimmer

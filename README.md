@@ -1,73 +1,68 @@
 # 🍎 iPhone 17 Pro Landing Page
 
-Welcome to the **iPhone 17 Pro Landing Page** project repository. This is a high-fidelity visual project focused on recreating the Apple presentation experience using modern web technologies and real-time 3D via **WebGPU**.
+Welcome to the **iPhone 17 Pro Landing Page** project. This is a benchmark project for the **Gemini CLI**, demonstrating a high-fidelity 3D product presentation using **WebGPU**, **React 19**, and **Three Shading Language (TSL)**.
 
 ## 📚 Overview
 
-The project is a **Monorepo** organized to clearly separate business logic from the visual presentation layer.
+This project is a **Monorepo** engineered to separate business logic from the visual layer.
 
 ### Workspaces
 
-| Package                             | Path                                               | Description                                                          |
-| :---------------------------------- | :------------------------------------------------- | :------------------------------------------------------------------- |
-| **`@iphone17pro-lp/engine-core`**   | [`packages/engine-core`](packages/engine-core)     | Business logic, XState, Types, and Constants. **Strict TypeScript**. |
-| **`@iphone17pro-lp/engine-react`**  | [`packages/engine-react`](packages/engine-react)   | Frontend, 3D Scene (WebGPU/R3F), TSL Shaders, UI.                    |
-| **`@iphone17pro-lp/engine-assets`** | [`packages/engine-assets`](packages/engine-assets) | 3D Models, Textures, and original Shaders.                           |
+| Package | Path | Responsibility |
+| :--- | :--- | :--- |
+| **`@iphone17pro-lp/engine-core`** | [`packages/engine-core`](packages/engine-core) | **Logic & State**. XState machines, strict types, i18n. Framework agnostic. |
+| **`@iphone17pro-lp/engine-react`** | [`packages/engine-react`](packages/engine-react) | **Presentation**. React 19, R3F v9, WebGPU Renderer, TSL Shaders. |
+| **`@iphone17pro-lp/engine-assets`** | [`packages/engine-assets`](packages/engine-assets) | **Assets**. GLB models, textures, and blend files. |
 
-## 🛠️ Installation & Setup
+## 🛠️ Installation
 
-This project uses **NPM Workspaces**.
+**Prerequisites:** Node.js v20+ (Required for Workspaces and Vite).
 
-1.  **Prerequisites**: Node.js v20+ installed.
-2.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-    _This will install dependencies for all packages and link the workspaces._
+```bash
+# 1. Install dependencies (Root)
+npm install
+```
 
 ## 💻 Main Commands
 
-Run from the project root:
+Run these commands from the **project root**:
 
-- **Development (Frontend)**:
+### Development
+```bash
+# Start the Frontend (Vite)
+npm run dev:frontend
+```
+*Note: This starts the development server for `engine-react`, which internally aliases `engine-core` source files for hot-reloading.*
 
-  ```bash
-  npm run dev:frontend
-  # Starts Vite in packages/engine-react
-  ```
+### Quality Control
+```bash
+# Run ESLint (Strict Type-Checking)
+npm run lint
 
-- **General Build**:
+# Run Type Checking (TypeScript)
+npm run type-check
+```
 
-  ```bash
-  npm run build -w @iphone17pro-lp/engine-core
-  npm run build -w @iphone17pro-lp/engine-react
-  ```
+### Production Build
+```bash
+# Build all packages in order
+npm run build
+```
 
-- **Linting**:
-  ```bash
-  npm run lint
-  # Runs strict ESLint checks across the monorepo
-  ```
+## 📖 Documentation Reference
 
-## 📖 Documentation
+- **[Project Context & Goals](.gemini/CONTEXT.md)**: The "North Star" for the AI agent.
+- **[Architecture](ARCHITECTURE.md)**: Detailed system design and data flow.
+- **[Style Guide](.gemini/STYLEGUIDE.md)**: Strict coding conventions and ESLint rules.
+- **[Technical Docs](DOCS.md)**: Deep dive into WebGPU, TSL, and R3F v9.
 
-- [Project Architecture](docs/ARCHITECTURE.md)
-- [Style Guide & Standards](.gemini/STYLEGUIDE.md)
+## ⚡ Tech Stack
 
-## 🤖 Automation & AI
-
-This project is configured with the Gemini CLI (`.gemini/`) and features GitHub Actions integration for:
-
-- Automatic Code Review (`gemini-review`).
-- Issue Triage (`gemini-triage`).
-
-## ⚡ Tech Stack Highlights
-
-- **WebGPU Renderer**: The future of web graphics.
-- **TSL (Three Shading Language)**: 100% TypeScript shaders. No raw GLSL.
-- **React 19 & R3F**: Declarative scene graph.
-- **Strict TypeScript**: Type safety is paramount.
+- **Renderer:** [Three.js WebGPURenderer](https://threejs.org/)
+- **Shaders:** [Three Shading Language (TSL)](https://github.com/mrdoob/three.js/wiki/Three.js-Shading-Language)
+- **Framework:** [React 19](https://react.dev/) & [React Three Fiber v9](https://docs.pmnd.rs/react-three-fiber)
+- **State:** [XState](https://xstate.js.org/) (Logic) & [Zustand](https://github.com/pmndrs/zustand) (UI)
+- **Styling:** [TailwindCSS v4](https://tailwindcss.com/)
 
 ---
-
-_Project developed with React, Three.js (WebGPU), and ❤️._
+_Designed for performance. Built with Gemini._

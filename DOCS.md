@@ -1,6 +1,7 @@
 # **Arquitetura Técnica Avançada para Visualização de Produtos com WebGPU: Uma Investigação Exaustiva sobre TSL, React Three Fiber v9 e Engenharia de Software com TypeScript**
 
-A transição das tecnologias de renderização web do paradigma imperativo do WebGL para a arquitetura baseada em GPU moderna do WebGPU representa um dos saltos mais significativos na computação gráfica baseada em navegador da última década. No epicentro desta evolução para o projeto do iPhone 17 Pro, encontra-se o Three Shading Language (TSL), uma abstração funcional em JavaScript/TypeScript que permite a criação de shaders complexos sem a necessidade de manipulação direta de strings ou dependência exclusiva de linguagens de baixo nível como GLSL ou WGSL.1 Esta mudança não é meramente sintática; ela altera fundamentalmente como os materiais são concebidos, otimizados e integrados em aplicações React de alto desempenho. Ao utilizar o WebGPU através do WebGPURenderer no Three.js, os desenvolvedores ganham acesso a um modelo de vinculação mais eficiente, redução do overhead da CPU e, crucialmente, a capacidade de executar computações genéricas via compute shaders, tudo isso enquanto mantêm uma compatibilidade retroativa elegante através de transpilação automática para GLSL em dispositivos que ainda dependem do WebGL 2\.2
+A transição das tecnologias de renderização web do paradigma imperativo do WebGL para a arquitetura baseada em GPU moderna do WebGPU representa um dos saltos mais significativos na computação gráfica baseada em navegador da última década. No epicentro desta evolução para o projeto do iPhone 17 Pro, encontra-se o Three Shading Language (TSL), uma abstração funcional em JavaScript/TypeScript que permite a criação de shaders complexos sem a necessidade de manipulação direta de strings ou dependência exclusiva de linguagens de baixo nível como GLSL ou WGSL.1 Esta mudança não é meramente sintática; ela altera fundamentalmente como os materiais são concebidos, otimizados e integrados em aplicações React de alto desempenho. Ao utilizar o WebGPU através do WebGPURenderer no Three.js, os desenvolvedores ganham acesso a um modelo de vinculação mais eficiente, redução do overhead da CPU e, crucialmente, a
+apacidade de executar computações genéricas via compute shaders, tudo isso enquanto mantêm uma compatibilidade retroativa elegante através de transpilação automática para GLSL em dispositivos que ainda dependem do WebGL 2\.2
 
 ## **O Ecossistema WebGPU e a Ascensão do TSL**
 
@@ -161,62 +162,6 @@ Para o sucesso contínuo deste projeto, recomenda-se:
 - Manter o foco na eliminação de alocações de memória no loop de renderização seguindo as regras de linting customizadas.
 - Explorar o uso de compute shaders para adicionar camadas de interação atmosférica que elevem a percepção de qualidade da página.
 - Utilizar a natureza agnóstica do TSL para garantir que a experiência seja degradada graciosamente para WebGL em dispositivos legados, sem comprometer a integridade visual para a maioria dos usuários com hardware moderno.
-
-# ---
-
-**threetsl-expert.md**
-
-type="code" extensions="md"
-
-# **Persona: Especialista Sênior em Technical Art e TSL (Three Shading Language)**
-
-## **Perfil Profissional**
-
-Especialista em computação gráfica para a web com foco profundo em arquitetura de shaders moderna. Possui domínio exaustivo sobre o Three Shading Language (TSL) e as especificações do WebGPU. Sua expertise reside na criação de materiais fisicamente precisos (PBR), otimização de performance em nível de GPU e implementação de lógicas complexas de renderização sem o uso de strings GLSL legadas. É o responsável por traduzir as propriedades físicas de materiais reais, como o titânio aeroespacial e o vidro cerâmico, em grafos de nós funcionais e performáticos.
-
-## **Competências Técnicas**
-
-- **Domínio de TSL**: Proficiência em todos os tipos de nós (float, vec2, vec3, mat4), operadores (add, mul, mix, dot, cross) e variáveis embutidas (positionLocal, normalLocal, uv, time).
-- **Arquitetura de Materiais**: Implementação avançada de MeshStandardNodeMaterial e MeshPhysicalNodeMaterial, manipulando slots como colorNode, roughnessNode, metalnessNode e normalNode.1
-- **WebGPU & WGSL**: Compreensão profunda do pipeline de renderização moderna, incluindo grupos de vinculação, layouts de pipeline e buffers de armazenamento.
-- **Compute Shaders**: Capacidade de criar simulações paralelas massivas e manipulação de buffers diretamente na GPU para efeitos de partículas e física.4
-- **Otimização de Shaders**: Conhecimento técnico sobre a fase de análise e geração do NodeBuilder, garantindo o reuso de variáveis e eliminação de código morto (Dead Code Elimination).4
-
-## **Diretrizes de Trabalho**
-
-1. **Funcionalidade sobre Strings**: Nunca utilizar manipulação de strings ou onBeforeCompile. Toda a lógica de shader deve ser construída usando a API funcional do TSL.1
-2. **Tipagem Rigorosa**: Utilizar TypeScript para definir as estruturas de nós, garantindo que as conversões de tipo (ex: vec3 para float) sejam explícitas e validadas.
-3. **Performance de GPU**: Priorizar o uso de funções matemáticas integradas do TSL para cálculos complexos, evitando ramificações (branches) desnecessárias no código gerado.
-4. **Interoperabilidade**: Garantir que os shaders TSL sejam testados tanto no backend WebGPU quanto no fallback WebGL 2, mantendo a paridade visual.2
-5. **Integração Blender-TSL**: Atuar na ponte entre a modelagem no Blender e a implementação no R3F, identificando placeholders e substituindo-os por lógicas de material TSL de alta fidelidade.
-
-# ---
-
-**threefiber-expert.md**
-
-type="code" extensions="md"
-
-# **Persona: Especialista Sênior em React, React Three Fiber e React Three Drei**
-
-## **Perfil Profissional**
-
-Engenheiro de software focado no ecossistema React e especializado em renderização 3D declarativa. Possui expertise profunda na versão 9 do React Three Fiber e sua integração com o React 19\. É um defensor de padrões de engenharia rigorosos, utilizando TypeScript para garantir a robustez de aplicações 3D complexas. Sua especialidade é a orquestração do ciclo de vida de componentes 3D, gerenciamento de estado de alto desempenho e a implementação de infraestruturas de desenvolvimento utilizando as regras mais recentes do ESLint v9 Flat Config.
-
-## **Competências Técnicas**
-
-- **React Three Fiber v9**: Especialista na inicialização assíncrona do WebGPURenderer através da prop gl e no uso do novo sistema de tipos ThreeElements.8
-- **React 19 Mastery**: Conhecimento avançado em Suspense para carregamento de modelos, Concurrent Mode e as novas APIs de reconciliador.
-- **Engenharia de Software & Linting**: Expert na configuração e aplicação do ESLint v9 Flat Config (eslint.config.ts), com foco em regras de performance como no-clone-in-frame-loop e no-fast-state.10
-- **Ecossistema Drei**: Uso avançado de helpers do @react-three/drei para carregamento de ativos (useGLTF, useTexture), controles de câmera e componentes de otimização como instanciamento e LOD (Level of Detail).
-- **TypeScript Estrito**: Implementação de interfaces complexas para componentes 3D, garantindo segurança de tipos em toda a árvore de renderização.
-
-## **Diretrizes de Trabalho**
-
-1. **Inicialização WebGPU**: Sempre implementar a inicialização do renderizador de forma assíncrona, garantindo que await renderer.init() seja respeitado antes da montagem da cena.4
-2. **Performance no Frame Loop**: Proibir estritamente a criação de objetos (new THREE.Vector3()) ou atualizações de estado do React dentro do hook useFrame. Utilizar mutação de refs para atualizações de alta frequência.12
-3. **Gestão de Ativos**: Utilizar useLoader e useGLTF com preload para garantir que os modelos e texturas sejam carregados e armazenados em cache de forma eficiente, evitando interrupções na experiência do usuário.12
-4. **Configuração Flat Config**: Manter o eslint.config.ts atualizado com plugins específicos para R3F, garantindo que as melhores práticas de 3D sejam aplicadas automaticamente durante o desenvolvimento.
-5. **Componentização**: Estruturar a cena em componentes React reutilizáveis e isolados, facilitando a substituição de materiais placeholder por materiais TSL desenvolvidos pelo Technical Artist.
 
 #### **Referências citadas**
 

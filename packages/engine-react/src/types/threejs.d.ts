@@ -1,3 +1,19 @@
+/**
+ * @fileoverview This file contains centralized TypeScript declarations for the
+ * entire project.
+ *
+ * @IMPORTANT
+ * This file is intentionally verbose and manually declares modules for
+ * `three/tsl`, `three/nodes`, and `three/webgpu`. Attempts to simplify this
+ * into a more minimal augmentation file have failed due to type resolution
+ * issues with this specific version of `three.js` and our project's setup.
+ *
+ * Do NOT "clean up" or remove these declarations unless you have a proven,
+ * alternative strategy for TypeScript module resolution that works at both
+ * compile-time and runtime. This file, in its current state, is the stable
+ * foundation for our TSL and WebGPU workflow.
+ */
+
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import * as THREE from 'three';
 import type { Object3DNode, MaterialNode } from '@react-three/fiber';
@@ -80,7 +96,7 @@ declare module 'three/tsl' {
   export function max(a: Node | number, b: Node | number): Node;
   export function min(a: Node | number, b: Node | number): Node;
   
-  export function noise(coord: Node | number): FloatNode;
+  export function mx_noise_vec3(coord: Node | number): FloatNode;
   
   export function Fn<T>(fn: (inputs: any) => T): (...args: any[]) => T;
   export function If(condition: Node, thenBlock: () => void): void;

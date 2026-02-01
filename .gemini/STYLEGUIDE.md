@@ -1,84 +1,87 @@
 # 🎨 Style Guide & Coding Standards
 
-This guide defines the coding standards for the **iPhone 17 Pro Landing Page** project. It is directly derived from the strict rules configured in our `eslint.config.ts`.
+This guide defines the coding standards for the **iPhone 17 Pro Landing Page** project. It is strictly enforced by our `eslint.config.ts` (ESLint v9 Flat Config).
 
 ## 🛡️ TypeScript & Typing (Rigorous)
 
-Type safety is our number one priority to prevent runtime bugs.
+Type safety is paramount for the stability of our WebGPU pipeline.
 
 - **ZERO `any`**: The use of `any` is strictly prohibited (`@typescript-eslint/no-explicit-any`).
-  - *Alternative:* Use `unknown` with type guards or define the correct interface.
+- **Strict Null Checks**: Always handle `null` and `undefined` explicitly. TSL nodes often require strict types.
 - **Explicit Return Types**:
-  - In `@iphone17pro-lp/engine-core`: **Mandatory** for all exported functions (`explicit-module-boundary-types`).
-  - In `@iphone17pro-lp/engine-react`: Recommended, but inference is accepted for simple components.
-- **Type Imports**: Always separate type imports from value imports.
+  - **Mandatory** in `@iphone17pro-lp/engine-core` to ensure stable API contracts.
+  - **Recommended** in `@iphone17pro-lp/engine-react` for complex hooks and components.
+- **Type Imports**: Use `import type` for all type declarations.
   ```typescript
-  // ✅ Correct
-  import type { IState } from './types';
-  import { constants } from './constants';
-  
-  // ❌ Incorrect
-  import { IState, constants } from './types';
+  import type { IState } from './types'; // ✅
   ```
-- **Null Safety**:
-  - Use Optional Chaining (`?.`) and Nullish Coalescing (`??`) preferentially (`prefer-optional-chain`, `prefer-nullish-coalescing`).
-  - Avoid non-null assertions (`!`) unless strictly necessary.
 
 ## 🏗️ SOLID Principles & Architecture
 
-Adherence to **SOLID** principles is mandatory to maintain scalability.
+1.  **S - Single Responsibility**:
+    - `iphone.base.model.tsx`: Holds the geometry (GLB).
+    - `iphone.materials.ts`: Holds the TSL material definitions.
+    - `iphone.animations.ts`: Holds the animation logic.
+2.  **O - Open/Closed**: Extend functionality via composition (React `children` or custom hooks), not by modifying core components with excessive flags.
+3.  **D - Dependency Inversion**: `engine-react` depends on abstract state interfaces from `engine-core`, not concrete implementations.
 
-1.  **S - Single Responsibility Principle**: Each component or hook must do ONE thing.
-    *   *Example:* `iphone.base.model.tsx` only renders the GLB. Animation logic is handled in hooks like `features/canvas/components/Iphone/hooks/iphone.animations.ts`. They should not be mixed.
-2.  **O - Open/Closed Principle**: Components should be open for extension (via props/composition) but closed for modification.
-    *   *Rule:* Don't add `if (isFeatureX)` inside a generic component. Create a specialized wrapper or use composition.
-3.  **L - Liskov Substitution**: (More applicable to classes, but for React types): Sub-components should satisfy the props contract of their parents.
-4.  **I - Interface Segregation**: Props interfaces should be specific. Don't pass the entire `User` object if a component only needs `avatarUrl`.
-5.  **D - Dependency Inversion**: High-level modules (features) should not depend on low-level modules directly; they should depend on abstractions (hooks/contexts).
+## ⚛️ React & React Three Fiber (v9) Rules
 
-## 📂 File Structure (Feature-Sliced)
+### 1. The Render Loop (Hot Path)
+**CRITICAL**: The `useFrame` loop runs 60-120 times per second.
+- **NO Allocations**: Never create objects (`new THREE.Vector3()`, `new THREE.Matrix4()`) inside `useFrame`. Re-use module-level constants or `useMemo` variables.
+  - *ESLint Rule*: `react-three/no-clone-in-frame-loop`
+- **NO State Updates**: Never call `setState` or dispatch actions inside `useFrame` unless absolutely necessary (and throttled). Use `useRef` for visual updates.
+  - *ESLint Rule*: `react-three/no-fast-state`
 
-We follow a feature-sliced structure, NOT "technology-driven" (no broad `components/` or `hooks/` folders unless global).
+### 2. Component Structure
+- **Functional Components Only**.
+- **Async Initialization**: The `<Canvas>` `gl` prop must use async initialization for WebGPURenderer.
+  ```tsx
+  import { WebGPURenderer } from 'three';
+  
+  <Canvas gl={async (props) => {
+    const renderer = new WebGPURenderer(props);
+    await renderer.init();
+    return renderer;
+  }}>
+  ```
+- **Feature-Sliced**:
+  - `features/canvas`: 3D Scene components.
+  - `features/ui`: HTML overlays.
 
-- **`src/features/canvas/`**: **The 3D "Stage"**.
-  - Contains the main `<Canvas>` element, lighting, and all 3D components.
-  - The iPhone model itself lives in `src/features/canvas/components/Iphone/`.
-- **`src/features/ui/`**: **The 2D "UI Layer"**.
-  - Contains the landing page sections (Hero, Camera, etc.) built with HTML.
-  - These components *orchestrate* the 3D scene by updating state, but do not render 3D elements directly.
+## 🌈 Three Shading Language (TSL)
 
-## ⚛️ React & R3F (Engine-React)
+We do not use GLSL strings. We use TSL Nodes.
 
-- **Functional Components**: Only functional components.
-- **Hooks Rules**:
-  - `useEffect` and `useCallback` dependencies must be exhaustive (`react-hooks/exhaustive-deps`).
-  - Never call Hooks conditionally.
-- **Props**:
-  - Avoid passing object literals directly to optimized component props (`<MemoizedComponent obj={{}} />`) to prevent unnecessary re-renders.
-- **State**:
-  - **Local UI**: Use `useState`.
-  - **Global/Complex**: Use **Zustand** or **XState** (via `@iphone17pro-lp/engine-core`).
-- **R3F Props**: Our ESLint configuration allows for non-standard React props common in R3F (e.g., `attach`, `args`, `rotation-x`). See `eslint.config.ts` for the full list under `react/no-unknown-property`.
+- **Prohibited**: `onBeforeCompile`, raw GLSL strings, `ShaderMaterial` (unless wrapping TSL).
+- **Mandatory**: `MeshStandardNodeMaterial`, `MeshPhysicalNodeMaterial`, `SpriteNodeMaterial`.
+- **Functional Syntax**: Use TSL methods over primitive values.
+  - `mix(a, b, 0.5)` ✅
+  - `uniform("float", 0.5)` ❌ -> `float(0.5)` ✅
+  - `texture(map).rgb` ✅
+- **Texture Handling**: Explicitly define color space for color textures: `texture.colorSpace = THREE.SRGBColorSpace`.
+- **Math**: Prefer `mx_noise_vec3`, `fract`, `smoothstep` nodes over heavy texture lookups where possible.
 
 ## 🧠 Core Logic (Engine-Core)
 
-- **Purity**: Functions in `engine-core` should be, whenever possible, pure and testable.
-- **Framework Agnostic**: The `core` must not depend on `react`, `three.js` (except for math types if necessary), or the DOM. It should contain only business logic and state machines.
+- **Pure TypeScript**: No React, No DOM, No Three.js (except math classes if strictly isolated).
+- **Immutability**: State updates should be immutable (handled by XState context).
+- **Testing**: Logic must be testable without a browser environment.
 
 ## 🧹 Code Quality
 
-- **Console Logs**: Prohibited in production (`no-console`). Use a custom logger if necessary.
-- **Promises**: Floating promises (without `await` or `.catch`) are prohibited (`no-floating-promises`).
-- **Comparison**: Always use triple equals `===` (`eqeqeq`).
-
-## 📂 File Naming
-
-- **Files**: `kebab-case.ts` (e.g., `iphone-animations.ts`).
-- **React Components**: `PascalCase.tsx` (e.g., `HeroSection.tsx`).
-- **Hooks**: `useCamelCase.ts` (e.g., `useScrollAnimation.ts`).
+- **No Console Logs**: `console.log` is banned in production.
+- **Floating Promises**: All promises must be handled (`await` or `.catch`).
+- **Naming Conventions**:
+  - Files: `kebab-case.ts`
+  - Components: `PascalCase.tsx`
+  - Hooks: `useCamelCase.ts`
+  - Constants: `UPPER_SNAKE_CASE`
 
 ## 🔍 ESLint Highlights
 
-Our config applies "Production Grade" rules:
-- `@typescript-eslint/await-thenable`: Ensures you only await real promises.
-- `@typescript-eslint/no-unsafe-*`: Blocks unsafe operations that bypass the type system.
+Refer to `eslint.config.ts` for the definitive list.
+- `@typescript-eslint/await-thenable`: Security against unhandled async operations.
+- `react-hooks/exhaustive-deps`: Mandatory.
+- `react/no-unknown-property`: Configured to allow R3F props (`rotation-x`, `attach`, etc.).

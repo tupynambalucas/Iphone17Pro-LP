@@ -1,41 +1,25 @@
 # 🧠 @iphone17pro-lp/engine-core
 
-The "brain" of the application. This package contains all business logic, complex state management, constants, and type definitions that are agnostic to the view layer.
+The "Brain" of the iPhone 17 Pro Landing Page.
 
-## 🎯 Objective
+## 🎯 Purpose
 
-Centralize logic to ensure product business rules (iPhone 17 Pro) are consistent and testable, regardless of how they are rendered (Web, Mobile, CLI, etc.).
+To provide a **framework-agnostic**, **strictly typed**, and **testable** foundation for the application. This package defines *what* the iPhone is doing, not *how* it looks.
 
-## 🛠️ Tech Stack
+## 📦 Key Exports
 
-- **TypeScript**: Strict typing.
-- **XState**: Finite state machines for complex flows (e.g., Entrance Animation, Color Selection, Storage Configuration).
+- **`state/` (XState)**:
+  - `iphone.machine.ts`: The central state machine controlling the user journey (e.g., `intro` -> `colors` -> `camera`).
+- **`constants/`**:
+  - Physical constants (dimensions, weight).
+  - Animation timings and easing curves (math only).
+- **`locales/`**:
+  - i18n dictionaries for all text content.
+- **`types/`**:
+  - Shared interfaces used by both Core and React (e.g., `IPhoneColor`, `ICameraSpecs`).
 
-## 📦 Main Modules
+## 🚫 Constraints
 
-- **`state/`**: State Machine definitions (XState).
-  - `iphone.state.ts`: Controls the current model state (selected color, rotation, zoom).
-- **`constants/`**: Immutable values.
-  - `camera.constants.ts`: Camera positions for different breakpoints.
-  - `physics.constants.ts`: Physics configurations (if applicable).
-- **`types/`**: Shared TypeScript type definitions.
-- **`locales/`**: Translation strings and text data.
-
-## 🏗️ Build & Development
-
-This package is compiled using `tsc`.
-
-```bash
-# Install dependencies
-npm install
-
-# Build (Generates /dist folder)
-npm run build
-
-# Development (Watch mode)
-npm run dev
-```
-
-## 🤝 Integration
-
-This package is consumed by `@iphone17pro-lp/engine-react`. In development mode, `engine-react` uses an alias to read directly from `src/`, allowing instant feedback.
+1.  **No React**: `import React` is forbidden.
+2.  **No Three.js (Rendering)**: `import { Mesh }` is forbidden. `import { Vector3 }` (Math) is allowed if necessary, but preferred to keep it pure TS.
+3.  **Strict Mode**: `strict: true` in `tsconfig.json` is non-negotiable. Explicit return types are required.

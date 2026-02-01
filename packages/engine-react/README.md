@@ -1,43 +1,34 @@
 # ⚛️ @iphone17pro-lp/engine-react
 
-The presentation layer of the iPhone 17 Pro Landing Page. This package is a modern React application powered by Vite, focused on delivering a high-fidelity visual experience using WebGL.
+The "View" layer, powered by **React 19** and **WebGPU**.
 
-## 🌟 Features
+## 🌟 Key Features
 
-- **React 19**: Latest version for better performance and features.
-- **React Three Fiber (R3F)**: Declarative 3D rendering.
-- **Drei & Postprocessing**: Advanced visual effects (DOF, Bloom, etc.).
-- **Zustand**: Transient UI state management.
-- **TailwindCSS v4**: Fast and responsive styling.
-- **Internationalization (i18n)**: Support for multiple languages.
+- **React Three Fiber v9**: Utilizes the latest R3F version with support for async renderer initialization.
+- **WebGPURenderer**: The default renderer. Fallback to WebGL2 is handled transparently by Three.js (if configured), but we target WebGPU first.
+- **TSL (Three Shading Language)**: All materials (Titanium, Glass, Screen) are procedural `NodeMaterial` instances.
+- **TailwindCSS v4**: For the HTML UI overlays.
 
-## 🚀 How to Run
+## 🏗️ Architecture: Feature-Sliced
 
-Ensure you are in the monorepo root or inside this folder.
+- **`src/features/canvas/`**: The 3D World.
+  - **`components/Iphone/`**: The main actor.
+    - `materials/`: **TSL** definitions (e.g., `titanium.material.ts`).
+    - `model/`: The GLTF JSX graph (Geometry only).
+    - `hooks/`: Animation controllers (GSAP/Spring).
+- **`src/features/ui/`**: The 2D Overlay.
+  - Controls the `engine-core` state machine based on user interaction (scroll, clicks).
+
+## ⚠️ Performance Rules (Strict Linting)
+
+This package uses strict ESLint rules to prevent common 3D performance pitfalls:
+1.  **`react-three/no-clone-in-frame-loop`**: Do not allocate objects in `useFrame`.
+2.  **`react-three/no-fast-state`**: Do not use `useState` for animation values.
+
+## 🚀 Development
 
 ```bash
-# Start development server (HMR active)
 npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+# Starts Vite server. 
+# Aliases '@iphone17pro-lp/engine-core' to the local source for easy debugging.
 ```
-
-## 🏗️ Component Architecture (SOLID)
-
-We utilize a **Feature-Sliced** directory structure.
-
-- **`src/App.tsx`**: Application entry point, sets up the main layout and providers.
-- **`src/features/canvas/`**: **The Stage**. Contains the main R3F `Canvas`, lighting, and all 3D objects.
-  - **`src/features/canvas/components/Iphone/`**: **The Actor**. Contains the iPhone 3D model, its materials, and animation hooks.
-- **`src/features/ui/`**: **The UI Layer**. Contains the page sections (Hero, Specs, etc.) that users interact with. These components drive the application state but do not render 3D objects directly.
-- **`src/hooks/`**: Global reusable hooks.
-
-## 🔌 Integration with Engine-Core
-
-This package consumes logic from `@iphone17pro-lp/engine-core`.
-- **Dev**: Alias points to `../engine-core/src` (Hot Reload works for logic).
-- **Prod**: Alias points to `node_modules/.../dist` (Uses compiled and stable version).
