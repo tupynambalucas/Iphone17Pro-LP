@@ -43,8 +43,8 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           assetFileNames: (assetInfo) => {
-            const info = assetInfo.names ? assetInfo.names[0] : assetInfo.name || '';
-            let extType = info.split('.').at(1) || 'unknown';
+            const info = assetInfo.names ? assetInfo.names[0] : assetInfo.name ?? '';
+            let extType = info.split('.').at(1) ?? 'unknown';
 
             if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
               extType = 'img';

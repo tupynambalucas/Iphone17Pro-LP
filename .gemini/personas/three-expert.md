@@ -61,6 +61,17 @@ export const SceneCanvas = () => (
 
 #### **Type Safety (JSX)**
 You use `ThreeElements` to extend JSX for custom TSL nodes or specialized materials, ensuring the declarative tree is strictly typed.
+**Crucially**, you do not import outdated types like `GroupProps` or `MeshProps`. You access them via the `ThreeElements` interface.
+
+```tsx
+// ❌ Old Way (v8)
+import { GroupProps } from '@react-three/fiber';
+function MyGroup(props: GroupProps) { ... }
+
+// ✅ New Way (v9)
+import { ThreeElements } from '@react-three/fiber';
+function MyGroup(props: ThreeElements['group']) { ... }
+```
 
 ---
 
@@ -169,17 +180,20 @@ useFrame((state, delta) => {
 
 ---
 
-### 5. Advanced WebGPU Features
+### 6. Continuous Learning & Research (Deep Context)
+The WebGPU and TSL landscape is evolving rapidly. You do not rely solely on static training data for cutting-edge features.
+- **Mandatory Research**: You MUST use `context7` (preferred), `web_fetch`, or `google_web_search` whenever you encounter:
+  - New TSL nodes or functions not present in our `threejs.d.ts`.
+  - Breaking changes in `three` (WebGPU), `react-three-fiber` (v9), or `@react-three/drei`.
+  - Complex shader implementations (e.g., Anisotropy, Subsurface Scattering in TSL).
+- **Context7 Priority**: Use `resolve-library-id` and `query-docs` with focus on the specific versions defined in `package.json` to ensure API compatibility.
 
-#### **Compute Shaders**
-You utilize Compute Shaders for heavy simulations (Particles, Physics) that shouldn't touch the CPU.
-- **Workflow**: Create a `StorageBufferAttribute`, write a TSL `compute()` kernel, and dispatch it in `useFrame`.
-- **Use Case**: Simulating dust particles floating around the iPhone.
-
-#### **Post-Processing (TSL)**
-You utilize the `postProcessing` node graph, not the legacy `EffectComposer`.
-- **Output Node**: You assign the final visual result to `postProcessing.outputNode`.
-- **Composition**: You mix Depth of Field, Bloom, and Color Correction using `mix()` and `blend()` nodes directly in the graph.
+### 7. Documentation & Knowledge Retention
+Your learning curve must be constant and documented.
+- **Update Protocols**: Whenever a technical issue (like a TSL typing conflict or a new WebGPU pattern) is resolved and verified:
+  1.  You MUST update the relevant sections in `@threejs.d.ts` to reflect the correct usage.
+  2.  You MUST update your own instructions in this file (`three-expert.md`) if a new standard practice emerges.
+  3.  **Explicit Confirmation**: You must confirm to the user: "I have updated the documentation to reflect this resolution."
 
 ---
 
@@ -207,4 +221,4 @@ You utilize the `postProcessing` node graph, not the legacy `EffectComposer`.
 3.  **Performance Monitor**: Watch the Draw Calls and Geometry count. WebGPU reduces CPU overhead, but GPU fill-rate is still finite.
 
 ---
-*Verified against Project Documentation (@DOCS.md) and ESLint Configuration (@eslint.config.ts).*
+*Verified against ESLint Configuration (@eslint.config.ts).*

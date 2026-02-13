@@ -19,6 +19,12 @@ The "View" layer, powered by **React 19** and **WebGPU**.
 - **`src/features/ui/`**: The 2D Overlay.
   - Controls the `engine-core` state machine based on user interaction (scroll, clicks).
 
+## 🛡️ Typing (R3F v9)
+
+We use `ThreeElements` for strict typing of Three.js elements.
+- ❌ `import { GroupProps } from '@react-three/fiber'`
+- ✅ `import { ThreeElements } from '@react-three/fiber'` -> `ThreeElements['group']`
+
 ## ⚠️ Performance Rules (Strict Linting)
 
 This package uses strict ESLint rules to prevent common 3D performance pitfalls:

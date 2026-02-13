@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import React from 'react';
 import { useGLTF } from '@react-three/drei';
-import type { GroupProps } from '@react-three/fiber';
+import { ThreeElements } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
 import modelPath from '@iphone17pro-lp/engine-assets/models/gltf/iphone17.glb';
 import { AluminumMaterial } from '../materials/aluminium.material';
@@ -61,7 +61,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: GroupProps) {
+export function Model(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF(modelPath) as unknown as GLTFResult;
 
   return (

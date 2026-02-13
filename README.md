@@ -54,7 +54,6 @@ npm run build
 - **[Project Context & Goals](.gemini/CONTEXT.md)**: The "North Star" for the AI agent.
 - **[Architecture](ARCHITECTURE.md)**: Detailed system design and data flow.
 - **[Style Guide](.gemini/STYLEGUIDE.md)**: Strict coding conventions and ESLint rules.
-- **[Technical Docs](DOCS.md)**: Deep dive into WebGPU, TSL, and R3F v9.
 
 ## ⚡ Tech Stack
 

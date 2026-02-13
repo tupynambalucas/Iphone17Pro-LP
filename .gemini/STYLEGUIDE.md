@@ -46,6 +46,13 @@ Type safety is paramount for the stability of our WebGPU pipeline.
     return renderer;
   }}>
   ```
+- **Type Safety (v9)**:
+  - Do not use `GroupProps`, `MeshProps` (removed in v9).
+  - Use `ThreeElements['group']` or `ThreeElements['mesh']`.
+  ```tsx
+  import { ThreeElements } from '@react-three/fiber';
+  function MyComponent(props: ThreeElements['group']) { ... }
+  ```
 - **Feature-Sliced**:
   - `features/canvas`: 3D Scene components.
   - `features/ui`: HTML overlays.
