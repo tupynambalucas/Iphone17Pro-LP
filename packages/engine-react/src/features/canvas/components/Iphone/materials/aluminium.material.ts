@@ -6,35 +6,33 @@ import { color, float, uv, mx_noise_float, add, mul, bumpMap } from 'three/tsl';
  * Uses TSL (Three Shading Language) for a fine-grained, sandblasted white aluminum finish.
  */
 export const AluminumMaterial = new MeshPhysicalNodeMaterial({
-  name: 'AluminumMaterial',
-  metalness: 0.1, // Sligth metallic hint for the white anodized look
-  roughness: 0.6, // Matte finish
-  clearcoat: 0.05,
+  name: 'M_Aluminium',
+  metalness: 1.0, // Alumínio é condutor, metalness deve ser total
+  roughness: 0.4, // Base matte
+  clearcoat: 0.02,
   clearcoatRoughness: 0.1,
 });
 
 // --- Procedural TSL Logic ---
 
 // 1. Extreme Fine Grain Scale: High frequency for sand-like appearance
-const grainScale = float(2500.0);
+const grainScale = float(5000.0);
 const grainUV = uv().mul(grainScale);
 
-// 2. Procedural Fine Grain (Sand Texture)
-// file cannot perfectly match the internal 'OperatorNodeParameter' type, causing
-// a persistent TS error here despite the runtime being correct. This is a targeted
-// suppression to unblock the build.
+// 2. Ruído Procedural para Relevo e Rugosidade
 const grainNoise = mx_noise_float(grainUV);
 
-// 3. Color: Pure White
-AluminumMaterial.colorNode = color('#5D3FD3');
+// 3. Cor: Branco Alumínio Anodizado (ajustado conforme o print)
+AluminumMaterial.colorNode = color('#E5E5E5');
 
-// 4. Roughness: Subtle micro-surface variation
-AluminumMaterial.roughnessNode = add(0.5, mul(grainNoise, 0.5));
+// 4. Rugosidade Dinâmica
+// O ruído adiciona variações microscópicas na forma como a luz reflete
+AluminumMaterial.roughnessNode = add(0.3, mul(grainNoise, 0.2));
 
-// 5. Bump/Normal Mapping: Creating the "sand" relief
-// We use the grain noise to perturb the surface normal via bumpMap
-const bumpScale = float(0.1);
-AluminumMaterial.normalNode = bumpMap(grainNoise, bumpScale);
+// 5. Aplicação do BUMP MAP (O segredo do relevo)
+// O bumpMap do TSL altera a normal da superfície baseando-se no gradiente do ruído
+const bumpIntensity = float(0.002); // Valor baixo para ser sutil como no iPhone real
+AluminumMaterial.normalNode = bumpMap(grainNoise, bumpIntensity);
 
-// 6. Metalness
-AluminumMaterial.metalnessNode = float(0.1);
+// 6. Metalness sutilmente afetado pelo ruído (opcional para realismo)
+AluminumMaterial.metalnessNode = add(0.9, mul(grainNoise, 0.2));

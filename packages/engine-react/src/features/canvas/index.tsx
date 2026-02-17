@@ -9,11 +9,15 @@ function IphoneCanvas() {
   const iphonePosition: [number, number, number] = [0, 0, 0];
 
   const glConfig: CanvasProps['gl'] = async ({ canvas }) => {
+    console.log('Initializing WebGPU Renderer with canvas:', canvas);
+    console.log(canvas);
     const renderer = new THREE.WebGPURenderer({
-      canvas,
+      canvas: canvas as unknown as HTMLCanvasElement,
       antialias: true,
       alpha: true,
+      powerPreference: 'high-performance',
     });
+    renderer.setPixelRatio(window.devicePixelRatio);
     await renderer.init();
     return renderer as unknown as THREE.Renderer;
   };
