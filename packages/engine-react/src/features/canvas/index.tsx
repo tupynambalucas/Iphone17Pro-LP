@@ -28,20 +28,23 @@ function IphoneCanvas() {
       <Environment
         preset="studio"
         backgroundBlurriness={0}
-        backgroundIntensity={1}
-        backgroundRotation={[0, Math.PI / 2, 0]}
+        backgroundIntensity={0.7}
         environmentIntensity={0.8}
-        environmentRotation={[0, Math.PI / 2, 0]}
       />
-      <ambientLight intensity={2} />
-      <hemisphereLight color="#ffffff" groundColor="#444444" intensity={5} />
+      <ambientLight intensity={1.0} />
+      <hemisphereLight
+        color="#ffffff"
+        groundColor="#ffffff"
+        intensity={10.0}
+        position={[0, 100, 0]}
+      />
 
       <directionalLight
         position={[0, 0, 1500]}
-        intensity={0.01}
+        intensity={0.1}
         castShadow
         shadow-bias={-0.0001}
-        shadow-normalBias={0.04}
+        shadow-normalBias={0.05}
         shadow-mapSize={[2048, 2048]}
         target-position={iphonePosition}
       />
