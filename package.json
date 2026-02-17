@@ -10,6 +10,8 @@
     "frontend:dev": "npm run dev -w @iphone17pro-lp/engine-react",
     "frontend:start": "npm run start -w @iphone17pro-lp/engine-react",
     "frontend:build": "npm run build -w @iphone17pro-lp/engine-react",
+    "core:build": "npm run build -w @iphone17pro-lp/engine-core",
+    "build": "npm run core:build && npm run frontend:build",
     "model:generate": "npm run model:generate -w @iphone17pro-lp/engine-assets",
     "lint": "eslint ."
   },
