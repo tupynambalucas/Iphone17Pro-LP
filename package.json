@@ -7,7 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:frontend": "npm run dev -w @iphone17pro-lp/engine-react",
+    "frontend:dev": "npm run dev -w @iphone17pro-lp/engine-react",
+    "frontend:start": "npm run start -w @iphone17pro-lp/engine-react",
+    "frontend:build": "npm run build -w @iphone17pro-lp/engine-react",
     "model:generate": "npm run model:generate -w @iphone17pro-lp/engine-assets",
     "lint": "eslint ."
   },

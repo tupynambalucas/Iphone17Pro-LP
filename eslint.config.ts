@@ -2,25 +2,23 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import eslint from '@eslint/js';
+import { defineConfig } from 'eslint/config'; //
 import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactRefreshPlugin from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
-import type { Linter } from 'eslint';
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const config: Linter.Config[] = [
+export default defineConfig([
+  // 1. Configurações Base
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
 
-  // ========================================================================
-  // CONFIGURAÇÃO GLOBAL - Base para todo o monorepo
-  // ========================================================================
+  // 2. Configuração Global
   {
     name: 'monorepo/global-typescript-config',
     files: ['**/*.{js,mjs,ts,tsx}'],
@@ -55,9 +53,6 @@ const config: Linter.Config[] = [
       ],
     },
     rules: {
-      // =====================================================================
-      // 🔴 REGRAS CRÍTICAS - Previnem bugs em produção
-      // =====================================================================
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unsafe-assignment': 'error',
       '@typescript-eslint/no-unsafe-member-access': 'error',
@@ -67,10 +62,6 @@ const config: Linter.Config[] = [
       '@typescript-eslint/no-misused-promises': 'error',
       '@typescript-eslint/await-thenable': 'error',
       '@typescript-eslint/no-unnecessary-condition': 'warn',
-
-      // =====================================================================
-      // 🟡 REGRAS IMPORTANTES - Melhoram qualidade
-      // =====================================================================
       '@typescript-eslint/require-await': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
       '@typescript-eslint/prefer-optional-chain': 'warn',
@@ -84,20 +75,10 @@ const config: Linter.Config[] = [
           fixStyle: 'separate-type-imports',
         },
       ],
-
-      // =====================================================================
-      // 🟢 REGRAS DE ESTILO - Desabilitadas ou flexíveis
-      // =====================================================================
-
-      // Import order: OFF (use Prettier ou faça manualmente)
       'import/order': 'off',
       'import/newline-after-import': 'off',
       'import/first': 'off',
-
-      // Permitir default exports (útil para Next.js, React Router, etc)
       'import/no-default-export': 'off',
-
-      // Imports duplicados: apenas aviso
       'import/no-duplicates': 'warn',
       'import/no-unresolved': [
         'error',
@@ -112,13 +93,7 @@ const config: Linter.Config[] = [
           ],
         },
       ],
-
-      // Naming convention: DESABILITADO (muito restritivo)
       '@typescript-eslint/naming-convention': 'off',
-
-      // =====================================================================
-      // QUALIDADE GERAL
-      // =====================================================================
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
       'prefer-const': 'error',
@@ -127,9 +102,7 @@ const config: Linter.Config[] = [
     },
   },
 
-  // ========================================================================
-  // IGNORES GLOBAIS
-  // ========================================================================
+  // 3. Ignores Globais
   {
     name: 'monorepo/ignores',
     ignores: [
@@ -154,9 +127,7 @@ const config: Linter.Config[] = [
     ],
   },
 
-  // ========================================================================
-  // CONFIG FILES NA RAIZ
-  // ========================================================================
+  // 4. Config Files na Raiz
   {
     name: 'monorepo/root-config-files',
     files: ['*.{js,mjs,ts}', '*.config.{js,mjs,ts}'],
@@ -177,16 +148,13 @@ const config: Linter.Config[] = [
         },
       ],
       '@typescript-eslint/explicit-function-return-type': 'off',
-      // Permitir 'any' SOMENTE em arquivos de config
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
     },
   },
 
-  // ========================================================================
-  // PACKAGES/engine-core - Código compartilhado (STRICT)
-  // ========================================================================
+  // 5. Package Engine Core
   {
     name: 'monorepo/packages-engine-core',
     files: ['packages/engine-core/**/*.{js,mjs,ts,tsx}'],
@@ -207,19 +175,14 @@ const config: Linter.Config[] = [
           destructuredArrayIgnorePattern: '^_',
         },
       ],
-      // engine-core: APIs públicas devem ter tipos explícitos
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'error',
-
-      // engine-core DEVE ser o código mais rigoroso
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/strict-boolean-expressions': 'warn',
     },
   },
 
-  // ========================================================================
-  // PACKAGES/engine-react - React Application
-  // ========================================================================
+  // 6. Package Engine React
   {
     name: 'monorepo/packages-engine-react',
     files: ['packages/engine-react/**/*.{js,mjs,ts,tsx}'],
@@ -241,7 +204,8 @@ const config: Linter.Config[] = [
     },
     plugins: {
       react: reactPlugin,
-      'react-hooks': reactHooksPlugin,
+      // O cast 'as any' continua necessário devido aos tipos do plugin
+      'react-hooks': reactHooksPlugin as any,
       'react-refresh': reactRefreshPlugin,
     },
     settings: {
@@ -259,12 +223,10 @@ const config: Linter.Config[] = [
       },
     },
     rules: {
-      // ===== REACT HOOKS (CRÍTICO) =====
       ...reactHooksPlugin.configs.recommended.rules,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'error',
 
-      // ===== REACT GERAL =====
       ...reactPlugin.configs.recommended.rules,
       ...reactPlugin.configs['jsx-runtime'].rules,
       'react/react-in-jsx-scope': 'off',
@@ -274,10 +236,8 @@ const config: Linter.Config[] = [
       'react/jsx-no-target-blank': 'error',
       'react/jsx-key': ['error', { checkFragmentShorthand: true }],
 
-      // ===== REACT REFRESH =====
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
-      // ===== TYPESCRIPT NO engine-react =====
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -296,21 +256,22 @@ const config: Linter.Config[] = [
             'geometry',
             'material',
             'userData',
-            'args', // Essencial para construtores (new Three.Color(args))
+            'args',
             'position',
             'rotation',
             'scale',
             'intensity',
-            'intensity',
-            'rotation-x', // Suporte a propriedades atalizadas do R3F
+            'rotation-x',
             'rotation-y',
             'rotation-z',
             'lookAt',
-            'attach', // Crucial para acoplamento de objetos
+            'attach',
             'target-position',
             'envMapIntensity',
             'shadow-bias',
             'shadow-normalBias',
+            'shadow-mapSize',
+            'groundColor',
           ],
         },
       ],
@@ -319,21 +280,18 @@ const config: Linter.Config[] = [
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
 
-      // Console: permitir em dev, erro em produção
       'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     },
   },
+
+  // 7. Generated Models
   {
     name: 'monorepo/generated-models-shimming',
     files: ['**/*.model.tsx'],
     rules: {
-      // Desabilita a obrigatoriedade de 'import type' para modelos gerados
       '@typescript-eslint/consistent-type-imports': 'off',
-      // O gltfjsx usa as-casting que o ESLint pode reclamar
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
     },
   },
-];
-
-export default config;
+]);

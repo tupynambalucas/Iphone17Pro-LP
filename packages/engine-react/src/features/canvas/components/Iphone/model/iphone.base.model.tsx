@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import React from 'react';
 import { useGLTF } from '@react-three/drei';
 import { ThreeElements } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
@@ -315,7 +314,7 @@ export function Model(props: ThreeElements['group']) {
               castShadow
               receiveShadow
               geometry={nodes.MSH_Rear_Logo.geometry}
-              material={materials.M_Logo_Material}
+              material={AluminumMaterial}
             />
           </group>
           <group name="GRP_Screen_System">

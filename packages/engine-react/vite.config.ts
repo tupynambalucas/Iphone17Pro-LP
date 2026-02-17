@@ -37,13 +37,13 @@ export default defineConfig(({ mode }) => {
     assetsInclude: ['**/*.glb', '**/*.gltf'],
 
     build: {
-      outDir: 'dist',
+      outDir: path.resolve(__dirname, '../../dist'),
       emptyOutDir: true,
       sourcemap: mode === 'development',
       rollupOptions: {
         output: {
           assetFileNames: (assetInfo) => {
-            const info = assetInfo.names ? assetInfo.names[0] : assetInfo.name ?? '';
+            const info = assetInfo.names[0] ?? assetInfo.name;
             let extType = info.split('.').at(1) ?? 'unknown';
 
             if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {

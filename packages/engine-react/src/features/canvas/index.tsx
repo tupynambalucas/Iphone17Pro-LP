@@ -1,6 +1,6 @@
 import * as THREE from 'three/webgpu';
 import { Canvas, extend, type CanvasProps } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Environment } from '@react-three/drei';
 import Iphone from './components/Iphone';
 
 extend(THREE as unknown as Record<string, new (...args: unknown[]) => unknown>);
@@ -9,14 +9,15 @@ function IphoneCanvas() {
   const iphonePosition: [number, number, number] = [0, 0, 0];
 
   const glConfig: CanvasProps['gl'] = async ({ canvas }) => {
-    console.log('Initializing WebGPU Renderer with canvas:', canvas);
-    console.log(canvas);
     const renderer = new THREE.WebGPURenderer({
       canvas: canvas as unknown as HTMLCanvasElement,
       antialias: true,
       alpha: true,
-      powerPreference: 'high-performance',
     });
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.NeutralToneMapping;
+    renderer.toneMappingExposure = 0.5;
     renderer.setPixelRatio(window.devicePixelRatio);
     await renderer.init();
     return renderer as unknown as THREE.Renderer;
@@ -24,14 +25,24 @@ function IphoneCanvas() {
 
   return (
     <Canvas gl={glConfig} shadows>
-      <ambientLight intensity={0.5} />
+      <Environment
+        preset="studio"
+        backgroundBlurriness={0}
+        backgroundIntensity={1}
+        backgroundRotation={[0, Math.PI / 2, 0]}
+        environmentIntensity={0.8}
+        environmentRotation={[0, Math.PI / 2, 0]}
+      />
+      <ambientLight intensity={2} />
+      <hemisphereLight color="#ffffff" groundColor="#444444" intensity={5} />
 
       <directionalLight
-        position={[0, 2, 7]}
-        intensity={3}
+        position={[0, 0, 1500]}
+        intensity={0.01}
         castShadow
-        shadow-bias={-0.0005}
-        shadow-normalBias={0.02}
+        shadow-bias={-0.0001}
+        shadow-normalBias={0.04}
+        shadow-mapSize={[2048, 2048]}
         target-position={iphonePosition}
       />
 
