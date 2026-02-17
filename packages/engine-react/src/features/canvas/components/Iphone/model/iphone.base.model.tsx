@@ -300,7 +300,6 @@ export function Model(props: ThreeElements['group']) {
               receiveShadow
               geometry={nodes.MSH_Chassis_Unibody_Frame.geometry}
               material={AluminumMaterial}
-              scale={2.06}
             />
           </group>
           <group name="GRP_Rear_Assembly">
@@ -334,7 +333,7 @@ export function Model(props: ThreeElements['group']) {
               geometry={nodes.MHS_Screen_Display.geometry}
               material={materials.M_Screen_Display}
             />
-            <group name="MHS_Screen_Glass" scale={2.06}>
+            <group name="MHS_Screen_Glass">
               <mesh
                 name="GEO_Screen_Glass"
                 castShadow

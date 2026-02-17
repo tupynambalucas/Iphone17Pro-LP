@@ -26,7 +26,7 @@ const grainUV = uv().mul(grainScale);
 const grainNoise = mx_noise_float(grainUV);
 
 // 3. Color: Pure White
-AluminumMaterial.colorNode = color('#f5f5f5');
+AluminumMaterial.colorNode = color('#5D3FD3');
 
 // 4. Roughness: Subtle micro-surface variation
 AluminumMaterial.roughnessNode = add(0.5, mul(grainNoise, 0.5));
