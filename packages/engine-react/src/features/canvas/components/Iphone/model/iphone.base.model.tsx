@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { ThreeElements } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
-import modelPath from '@iphone17pro-lp/engine-assets/models/gltf/iphone17.glb';
+import modelPath from '@iphone17pro-lp/engine-assets/models/gltf/iphone17pro.glb';
 import { AluminumMaterial } from '../materials/aluminium.material';
 
 type GLTFResult = GLTF & {
