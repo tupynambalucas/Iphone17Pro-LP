@@ -11,7 +11,7 @@ export const AluminumMaterial = new MeshPhysicalNodeMaterial({
 
 const grainScale = float(2500);
 const grainNoise = sample((uv) => {
-  return vec3(mx_noise_float(uv.mul(grainScale), 0.2, 0.3));
+  return vec3(mx_noise_float(uv.mul(grainScale), 0.1, 0.2));
 });
 
 AluminumMaterial.colorNode = color(PRODUCT_COLORS.pink);
